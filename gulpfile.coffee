@@ -1,16 +1,16 @@
-# TODO:
-# - packages.json
-# - coffee script
-# - lint
+# gulp
 # - less
 # - bootstrap
-# - image compression
-
+# - compress images
 
 # sudo npm install gulp gulp-flatten del
-gulp    = require 'gulp'
-flatten = require 'gulp-flatten'
-del     = require 'del'
+gulp       = require 'gulp'
+browserify = require 'browserify'
+coffee     = require 'gulp-coffee'
+concat     = require 'gulp-concat'
+del        = require 'del'
+flatten    = require 'gulp-flatten'
+
 
 paths =
   'build': '.build/'
@@ -19,35 +19,46 @@ paths =
     'partials/**/*.php'
     'functions/**/*.php'
   ]
-  'scripts': [
-    ''
-  ]
+  'js': {
+    'app': './assets/javascripts/app.json',
+    'coffee': 'assets/javascripts/coffee/**/*.coffee'
+  }
+
   'css': ''
 
 
-gulp.task 'build', ->
 
-  # Build the PHP files
+gulp.task 'php', ->
   gulp.src paths.php
     .pipe flatten()
     .pipe gulp.dest(paths.build)
 
 
-  # Build the javascript
+gulp.task 'js', ->
+  app_js = require paths.js.app
 
-  # Build the stylesheets
+  gulp.src paths.coffee
+    .pipe coffee()
+    .pipe gulp.dest('assets/javascripts/js/')
+
+  gulp.src app_js.list
+    .pipe concat('index.js')
+    .pipe gulp.dest(paths.build)
+
+
+gulp.task 'css', ->
 
 
 gulp.task 'clean', (cb) ->
-  del([paths.build + '*'], cb)
+  del [paths.build + '*'], cb
 
 
 gulp.task 'default', ->
-  gulp.start('clean', 'build')
-
+  gulp.start 'clean', 'php', 'js'
 
 
 gulp.task 'watch', ->
-  gulp.watch paths.php, ['default']
-  # gulp.watch paths.js, ['scripts']
+  gulp.watch paths.php, ['php']
+  gulp.watch paths.coffee, ['js']
+
   # gulp.watch paths.images, ['images']

@@ -1,5 +1,7 @@
 # gulp
 
+theme_name = "THEME"
+
 gulp       = require "gulp"
 coffee     = require "gulp-coffee"
 concat     = require "gulp-concat"
@@ -14,7 +16,7 @@ uglifycss  = require "gulp-uglifycss"
 watch      = require "gulp-watch"
 
 paths =
-  "build": "../wordpress/wp-content/themes/paper-trumpets"
+  "build": "../wordpress/wp-content/themes/#{theme_name}"
   "fonts": [
     "./assets/fonts/**/*"
   ]

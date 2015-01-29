@@ -9,6 +9,13 @@
     "gulp": "*",
     "gulp-coffee": "*",
     "gulp-concat": "*",
-    "gulp-flatten": "*"
+    "gulp-watch": "*",
+    "gulp-flatten": "*",
+    "gulp-less": "*",
+    "gulp-order": "*",
+    "gulp-plumber": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "*",
+    "gulp-uglifycss": "*"
   }
 }

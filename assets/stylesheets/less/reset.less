@@ -1,0 +1,79 @@
+:focus {
+    outline:@gray auto 5px
+}
+::selection {
+    background: @gray;
+    color: @base-color;
+}
+::-moz-selection {
+    background: @gray;
+    color: @base-color;
+}
+
+body {
+  color: @base-color;
+  font-size: @font-size-base;
+}
+
+h1 {
+  color: @text-color;
+  font-family: @font-family-serif;
+  font-size: @font-size-large;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin: 0px 0px 5px;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: @text-color;
+  font-family: @font-family-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+h3 {
+  color: @text-color;
+  font-family: @font-family-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+p {
+  color: @base-color;
+  font-size: @font-size-base;
+}
+
+dd {
+  margin: 0px 0px 10px;
+}
+
+a:link, a:visited, a {
+  color: @link-color;
+}
+a:hover, a:visited:hover {
+  text-decoration: none;
+}
+a:focus, a:focus:hover {
+  color: @text-color;
+  text-decoration: none;
+}
+
+pre {
+  overflow: visible;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0px;
+  font-size: @font-size-base;
+}
+
+.container {
+  margin: 0px auto;
+  padding: 0px;
+}

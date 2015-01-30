@@ -1,0 +1,53 @@
+@import "bootstrap/variables.less";
+@import "variables.less";
+@import "post.less";
+
+
+// Login
+.login {
+  background: #fff;
+  h1 a {
+    background: url('images/logo.svg') 50% 50% no-repeat;
+  }
+}
+
+
+// Page
+.widefat tbody th.check-column,
+.widefat tfoot th.check-column,
+.widefat thead th.check-column {
+  padding: 8px 0px 0px 3px;
+}
+
+.widefat td,
+.widefat th {
+  padding: 8px 0px 4px 0px;
+}
+
+td.plugin-title strong,
+td.post-title strong {
+  margin: 0px 0px 0px 10px;
+}
+
+.fixed td.column-date {
+  font-size: 11px;
+}
+
+.row-actions {
+  padding: 0px 0px 0px 10px;
+  a {
+    font-size: 11px;
+  }
+}
+
+
+// Tiny MCE mirrors how it looks on the public side
+.mce-content-body {
+  .post;
+}
+
+.mce-content-body {
+  border: none;
+  padding: 5px;
+}
+

@@ -1,0 +1,68 @@
+form {
+}
+
+select {
+  font-family: @font-family-sans-serif;
+  font-size: @font-size-large;
+
+  option {
+    font-family: @font-family-sans-serif;
+    font-size: @font-size-large;
+  }
+}
+
+label {
+}
+
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+textarea {
+  border: 1px @base-color solid;
+  color: @base-color;
+}
+
+textarea {
+}
+
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input.button,
+button {
+  background: none;
+  border: 3px @text-color solid;
+  color: @text-color;
+  font-size: @font-size-large;
+  font-weight: bold;
+  padding: 5px 40px;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: @hover-color;
+    border: 3px @hover-color solid;
+    color: #fff;
+    transition: 0s;
+  }
+}
+
+.required {
+  color: @brand-danger;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  outline: 0;
+}

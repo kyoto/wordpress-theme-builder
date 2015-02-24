@@ -67,6 +67,10 @@ gulp.task "js", ->
     .pipe plumber.stop()
     .pipe gulp.dest(paths.build)
 
+  gulp.src ["#{paths.js.base}/ie.js"]
+    .pipe gulpif(production, uglify())
+    .pipe gulp.dest(paths.build)
+
 gulp.task "css", ->
   gulp.src ["./assets/stylesheets/less/index.less", "./assets/stylesheets/less/admin.less"]
     .pipe plumber()

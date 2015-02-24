@@ -29,8 +29,8 @@ paths =
     "./functions/**/*.*"
   ]
   "js":
-    "app": "./assets/javascripts/app.json"
-    "base": "./assets/javascripts/js"
+    "app":    "./assets/javascripts/coffee/index.coffee"
+    "base":   "./assets/javascripts/js"
     "coffee": "./assets/javascripts/coffee/**/*.coffee"
   "css":
     "base": "./assets/stylesheets/css"
@@ -51,14 +51,12 @@ gulp.task "php", ->
 
 gulp.task "coffee", (cb) ->
   gulp.src paths.js.coffee
-    .pipe coffee()
+    .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.base)
   cb()
 
 gulp.task "js", ->
-  app_js = require paths.js.app
-
-  gulp.src app_js.list
+  gulp.src require(paths.js.app)
     .pipe plumber()
     .pipe concat("index.js")
     .pipe uglify()

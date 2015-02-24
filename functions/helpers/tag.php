@@ -1,6 +1,6 @@
 <?php
 
-// TAG HELPERS
+// Helpers that generate HTML tags
 
 // Outputs a html link
 function link_to($title, $url, $options = null) {

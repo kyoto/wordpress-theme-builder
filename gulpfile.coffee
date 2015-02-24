@@ -79,7 +79,6 @@ gulp.task "css", ->
     .pipe gulpif(production, uglifycss())
     .pipe gulpif(!production, sourcemaps.write("./maps"))
     .pipe plumber.stop()
-    .pipe gulp.dest(paths.css.base)
     .pipe gulp.dest(paths.build)
 
 gulp.task "wordpress", ->

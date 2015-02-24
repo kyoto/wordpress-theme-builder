@@ -3,10 +3,12 @@
 theme_name = "THEME"
 
 gulp       = require "gulp"
+yargs      = require "yargs"
 coffee     = require "gulp-coffee"
 concat     = require "gulp-concat"
 del        = require "del"
 flatten    = require "gulp-flatten"
+gulpif     = require "gulp-if"
 less       = require "gulp-less"
 order      = require "gulp-order"
 plumber    = require "gulp-plumber"
@@ -14,6 +16,8 @@ sourcemaps = require "gulp-sourcemaps"
 uglify     = require "gulp-uglify"
 uglifycss  = require "gulp-uglifycss"
 watch      = require "gulp-watch"
+
+production = !!(yargs.argv.production)
 
 paths =
   "build": "../wordpress/wp-content/themes/#{theme_name}"
@@ -59,17 +63,17 @@ gulp.task "js", ->
   gulp.src require(paths.js.app)
     .pipe plumber()
     .pipe concat("index.js")
-    .pipe uglify()
+    .pipe gulpif(production, uglify())
     .pipe plumber.stop()
     .pipe gulp.dest(paths.build)
 
 gulp.task "css", ->
   gulp.src ["./assets/stylesheets/less/index.less", "./assets/stylesheets/less/admin.less"]
     .pipe plumber()
-    .pipe sourcemaps.init()
+    .pipe gulpif(!production, sourcemaps.init())
     .pipe less()
-    .pipe uglifycss()
-    .pipe sourcemaps.write("./maps")
+    .pipe gulpif(production, uglifycss())
+    .pipe gulpif(!production, sourcemaps.write("./maps"))
     .pipe plumber.stop()
     .pipe gulp.dest(paths.css.base)
     .pipe gulp.dest(paths.build)

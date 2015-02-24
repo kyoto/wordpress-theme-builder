@@ -9,6 +9,7 @@
     "gulp": "*",
     "gulp-coffee": "*",
     "gulp-concat": "*",
+    "gulp-if": "*",
     "gulp-watch": "*",
     "gulp-flatten": "*",
     "gulp-less": "*",
@@ -16,6 +17,7 @@
     "gulp-plumber": "*",
     "gulp-sourcemaps": "*",
     "gulp-uglify": "*",
-    "gulp-uglifycss": "*"
+    "gulp-uglifycss": "*",
+    "yargs": "*"
   }
 }

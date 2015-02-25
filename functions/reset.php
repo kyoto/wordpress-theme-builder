@@ -1,8 +1,8 @@
 <?php
 
-// Contains all the overriding of any undesireable default behaviour
-
-
+//
+// Contains all the overriding of any undesirable default behaviour
+//
 
 // Perform resets on the initialization of wordpress
 function initialize_wordpress_app() {
@@ -17,7 +17,6 @@ function initialize_wordpress_app() {
   // Enable widgets
   register_sidebar(array("name" => ""));
 }
-
 add_action("init", "initialize_wordpress_app", 100);
 
 
@@ -90,5 +89,4 @@ function my_image_resize_dimensions( $nonsense, $orig_w, $orig_h, $dest_w, $dest
   // int dst_x, int dst_y, int src_x, int src_y, int dst_w, int dst_h, int src_w, int src_h
   return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
-
-add_filter( "image_resize_dimensions", "my_image_resize_dimensions", 1, 6 );
+add_filter("image_resize_dimensions", "my_image_resize_dimensions", 1, 6);

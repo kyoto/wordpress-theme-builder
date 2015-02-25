@@ -1,6 +1,8 @@
 <?php
 
-// GENERAL HELPERS
+//
+// General helpers
+//
 
 // Print out the contents of a variable
 function o($value) {
@@ -16,7 +18,7 @@ function is_assoc($arr) {
 }
 
 
-// TEMPLATE HELPERS
+// Template helpers
 
 // Get a partial template by its name
 function get_partial($name) {
@@ -31,6 +33,11 @@ function partial($name) {
 
 
 // HELPERS
+
+//
+//
+//
+
 
 function get_page($page = null) {
   global $post;

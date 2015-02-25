@@ -1,5 +1,9 @@
 <?php
 
+//
+//
+//
+
 
 // Load translations into a global variable
 function load_translations() {

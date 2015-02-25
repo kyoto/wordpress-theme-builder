@@ -1,5 +1,9 @@
 <?php
 
+//
+//
+//
+
 // Load custom stylesheets for Admin
 function load_custom_wp_admin_style() {
   wp_register_style("custom_wp_admin_css", get_template_directory_uri() . "/admin.css", false, "1.0.0");
@@ -10,7 +14,7 @@ add_action("admin_bar_init", "load_custom_wp_admin_style");
 add_action("login_init", "load_custom_wp_admin_style");
 
 
-// Configure Tiny MCE
+// Custom configure Tiny MCE
 function tiny_mce_options( $init ) {
   $stylesheets = array(
     "/wp-includes/js/tinymce/skins/lightgray/content.min.css",
@@ -108,7 +112,6 @@ function df_disable_comments_admin_bar() {
   }
 }
 add_action("init", "df_disable_comments_admin_bar");
-
 
 
 // Disable custom fields

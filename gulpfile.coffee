@@ -1,12 +1,12 @@
 # gulp
 
-theme_name = "THEME"
+theme_name = "../wordpress/wp-content/themes/THEME"
 
 gulp       = require "gulp"
 yargs      = require "yargs"
+del        = require "del"
 coffee     = require "gulp-coffee"
 concat     = require "gulp-concat"
-del        = require "del"
 flatten    = require "gulp-flatten"
 gulpif     = require "gulp-if"
 less       = require "gulp-less"
@@ -20,17 +20,13 @@ watch      = require "gulp-watch"
 production = !!(yargs.argv.production)
 
 paths =
-  "build": "../wordpress/wp-content/themes/#{theme_name}"
-  "fonts": [
-    "./assets/fonts/**/*"
-  ]
-  "images": [
-    "./assets/images/**/*"
-  ]
+  "build":  theme_name
+  "fonts":  ["./assets/fonts/**/*"]
+  "images": ["./assets/images/**/*"]
   "php": [
+    "./functions/**/*.*"
     "./pages/**/*.php"
     "./partials/**/*.php"
-    "./functions/**/*.*"
   ]
   "js":
     "app":    "./assets/javascripts/coffee/index.coffee"

@@ -1,5 +1,9 @@
 <?php
 
+//
+//
+//
+
 require_once("reset.php");
 
 require_once("wp_admin.php");

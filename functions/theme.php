@@ -116,31 +116,3 @@ function render_work($work_page, $options = null) {
 
   echo $output;
 }
-
-
-function get_carousel($images, $options = null) {
-  $links_output  = "";
-  $images_output = "";
-
-  for ($i=0; $i < sizeof($images); $i++) {
-    $links_output   .= "<li data-target='#album' data-slide-to='$i'></li>";
-    $img_tag = get_img_tag($images[0]);
-
-    $active = ($i == 0) ? "active" : "";
-
-    $images_output .= "
-      <div class='item $active'>
-        $img_tag
-      </div>
-    ";
-  }
-
-  $output = "
-    <div class='carousel slide' data-ride='carousel'>
-      <ol class='carousel-indicators'>$links_output</ol>
-      <div class='carousel-inner' role='listbox'>$images_output</div>
-    </div>
-  ";
-
-  return $output;
-}

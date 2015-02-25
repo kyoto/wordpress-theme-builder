@@ -39,42 +39,34 @@ function partial($name) {
 //
 
 
-function get_page($page = null) {
+function get_content($content = null) {
+  global $post;
+
+  $page    = isset($page) ? $page : $post;
+  $content = isset($content) ? $content : $page->post_content;
+
+  return do_shortcode($content);
+}
+
+function content($content = null) {
+  echo get_content($content);
+}
+
+function get_the_page($page = null) {
   global $post;
 
   $page       = isset($page) ? $page : $post;
   $title      = $page->post_title;
-  $content    = get_field("content", $page->ID);
   $text       = "";
   $breadcrumb = get_breadcrumb($page);
   $slug       = $page->post_name;
 
-  if (empty($content)) {
-    $text = do_shortcode($page->post_content);
+  if (function_exists("get_field")) {
+    $content = get_field("content", $page->ID);
+    $text    = get_acf_page($content);
   }
   else {
-    foreach ($content as $section) {
-      switch ($section["acf_fc_layout"]) {
-        case "column-1":
-          $contents = $section["content"];
-          $text    .= "<div class='row'><div class='col-sm-12'>
-            $contents
-            </div></div>";
-          break;
-
-        case "column-2":
-          $column_1 = $section["column-1"];
-          $column_2 = $section["column-2"];
-          $text    .= "
-          <div class='row'>
-            <div class='col-sm-6'>$column_1</div>
-            <div class='col-sm-6'>$column_2</div>
-          </div>";
-          break;
-
-        default: break;
-      }
-    }
+    $text = get_content($page->post_content);
   }
 
   $output = "
@@ -89,7 +81,7 @@ function get_page($page = null) {
 }
 
 function page($page = null) {
-  echo get_page($page);
+  echo get_the_page($page);
 }
 
 function get_breadcrumb($page) {
@@ -109,7 +101,7 @@ function get_breadcrumb($page) {
       // $output .= $page->post_title;
     }
     elseif (is_page() && $page->post_parent) {
-      $home = get_page(get_option('page_on_front'));
+      $home = get_the_page(get_option('page_on_front'));
       for ($i = count($page->ancestors)-1; $i >= 0; $i--) {
         if (($home->ID) != ($page->ancestors[$i])) {
           $output .=  '<a href="';
@@ -150,9 +142,6 @@ function get_navigation() {
 
 function navigation() {
   wp_nav_menu(array(
-    "menu"            => "primary",
-    "container_class" => "collapse navbar-collapse",
-    "menu_class"      => "navbar-nav nav",
-    "walker"          => new wp_bootstrap_menu()
+    "menu"            => "primary"
   ));
 }

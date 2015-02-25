@@ -15,6 +15,40 @@ function k($key) {
   return get_field($key, "option");
 }
 
+
+
+function get_acf_page($content) {
+  global $post;
+
+  $output = "";
+
+  foreach ($content as $section) {
+    switch ($section["acf_fc_layout"]) {
+      case "column-1":
+        $contents = $section["content"];
+        $output  .= "<div class='row'><div class='col-sm-12'>
+          $contents
+          </div></div>";
+        break;
+
+      case "column-2":
+        $column_1 = $section["column-1"];
+        $column_2 = $section["column-2"];
+        $output  .= "
+        <div class='row'>
+          <div class='col-sm-6'>$column_1</div>
+          <div class='col-sm-6'>$column_2</div>
+        </div>";
+        break;
+
+      default: break;
+    }
+  }
+
+  return $output;
+}
+
+
 // Returns the markup for an image gallery.
 // TODO: Update to reflect new JQuery plugin
 // TODO: Adapt WooCommerce to use new jQuery plugin markup

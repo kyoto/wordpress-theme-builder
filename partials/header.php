@@ -38,7 +38,7 @@
       </a>
     </div>
     <nav>
-      <?php render_nav(); ?>
+      <?php navigation(); ?>
     </nav>
   </div>
 </header>

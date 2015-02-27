@@ -1,10 +1,17 @@
 <?php
+/**
+ * Contains all the overriding of any undesirable default behaviour of wordpress
+ * as well as any generic initialising
+ *
+ * @package reset
+ */
 
-//
-// Contains all the overriding of any undesirable default behaviour
-//
 
-// Perform resets on the initialization of wordpress
+/**
+ * Perform resets on the initialization of wordpress
+ *
+ * @ignore
+ */
 function initialize_wordpress_app() {
   // Remove unecessary meta tags
   remove_action("wp_head", "wp_generator");
@@ -17,26 +24,35 @@ function initialize_wordpress_app() {
   // Enable widgets
   register_sidebar(array("name" => ""));
 }
+
 add_action("init", "initialize_wordpress_app", 100);
 
 
-// By default, Wordpress does not highlight the menu if you are currently viewing a single blog post
+/**
+ * By default, Wordpress does not highlight the menu if you are currently viewing a single blog post
+ *
+ * @ignore
+ */
 function highlight_single_post_blog( $classes, $item ) {
   if (is_single() && !is_product() && $item->title == "Blog") {
     $classes[] = "current_page_item";
   }
   return $classes;
 }
+
 add_filter("nav_menu_css_class", "highlight_single_post_blog", 10, 2);
 
 
-// Wordpress has an issue in which uploaded images are not scaled up
-
-// Scale up images functionality in "Edit image" ...
-// See http://core.trac.wordpress.org/ticket/23713
-// This is slightly changed function image_resize_dimensions() in wp-icludes/media.php */
+/**
+ * Wordpress has an issue in which uploaded images are not scaled up
+ *
+ * Scale up images functionality in "Edit image" ...
+ * See http://core.trac.wordpress.org/ticket/23713
+ * This is slightly changed function image_resize_dimensions() in wp-icludes/media.php
+ *
+ * @ignore
+ */
 function my_image_resize_dimensions( $nonsense, $orig_w, $orig_h, $dest_w, $dest_h, $crop = false) {
-
   if ($crop) {
     // crop the largest possible portion of the original image that we can size to $dest_w x $dest_h
     $aspect_ratio = $orig_w / $orig_h;
@@ -89,4 +105,5 @@ function my_image_resize_dimensions( $nonsense, $orig_w, $orig_h, $dest_w, $dest
   // int dst_x, int dst_y, int src_x, int src_y, int dst_w, int dst_h, int src_w, int src_h
   return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
+
 add_filter("image_resize_dimensions", "my_image_resize_dimensions", 1, 6);

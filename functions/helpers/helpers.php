@@ -1,10 +1,16 @@
 <?php
+/**
+ * General helpers
+ *
+ * @package helpers
+ */
 
-//
-// General helpers
-//
 
-// Print out the contents of a variable
+/**
+ * Output the contents of a variable in a readable format
+ *
+ * @param object $value The value to output
+ */
 function o($value) {
   echo "<pre>";
   print_r($value);
@@ -12,33 +18,42 @@ function o($value) {
   // var_dump($value);
 }
 
-// Determines whether an array is associative or numeric
+
+/**
+ * Determines whether an array is associative or numeric
+ *
+ * @param array $arr The array to test
+ */
 function is_assoc($arr) {
   return array_keys($arr) !== range(0, count($arr) - 1);
 }
 
 
-// Template helpers
-
-// Get a partial template by its name
+/**
+ * Return a partial template by its name
+ *
+ * @param string $name The name of the partial template
+ */
 function get_partial($name) {
-  return file_get_contents(locate_template("$name.php"));
+  return file_get_contents(locate_template($name));
 }
 
-// Output a partial
+
+/**
+ * Output a partial
+ *
+ * @param string $name The name of the partial template
+ */
 function partial($name) {
   echo get_partial($name);
 }
 
 
-
-// HELPERS
-
-//
-//
-//
-
-
+/**
+ * Return a page's or post's content
+ *
+ * @param object $content The post content of a page or post
+ */
 function get_content($content = null) {
   global $post;
 
@@ -48,10 +63,22 @@ function get_content($content = null) {
   return do_shortcode($content);
 }
 
+
+/**
+ * Return a page's or post's content
+ *
+ * @param object $content The post content of a page or post
+ */
 function content($content = null) {
   echo get_content($content);
 }
 
+
+/**
+ * Return the HTML template of a page's or post's content
+ *
+ * @param page $page The page. If a page is not provided, the global post will be attempted to be found.
+ */
 function get_the_page($page = null) {
   global $post;
 
@@ -80,10 +107,22 @@ function get_the_page($page = null) {
   return $output;
 }
 
+
+/**
+ * Output the HTML template of a page's or post's content.
+ *
+ * @param page $page The page. If a page is not provided, the global post will be attempted to be found.
+ */
 function page($page = null) {
   echo get_the_page($page);
 }
 
+
+/**
+ * Return the HTML template of a page's breadcrumb
+ *
+ * @param page $page The page
+ */
 function get_breadcrumb($page) {
   $separator = " » ";
   $output = "";
@@ -133,15 +172,33 @@ function get_breadcrumb($page) {
   return "<div class='breadcrumb'>$output</div>";
 }
 
+
+/**
+ * Output the HTML template of a page's breadcrumb
+ *
+ * @param page $page The page
+ */
 function breadcrumb($page) {
   echo get_breadcrumb($page);
 }
 
+
+/**
+ * Return the HTML template of the navigation
+ *
+ * @todo this function is incomplete
+ */
 function get_navigation() {
 }
 
+
+/**
+ * Output the HTML template of the navigation
+ *
+ * @todo this function is incomplete
+ */
 function navigation() {
   wp_nav_menu(array(
-    "menu"            => "primary"
+    "menu" => "primary"
   ));
 }

@@ -1,12 +1,18 @@
 <?php
+/**
+ * Gallery related helpers
+ * @package helpers/gallery
+ */
 
-add_filter("use_default_gallery_style", "__return_false");
-
-remove_shortcode("gallery");
-add_shortcode("gallery", "parse_gallery_shortcode");
-
-function parse_gallery_shortcode($atts) {
+/**
+ * Overriding wordpress's default gallery HTML template to accomodate for the jQuery slider plugin
+ *
+ * @param $atts post attributes
+ */
+function get_slide_gallery($atts) {
   global $post;
+
+  $post_id = isset($post) ? $post->ID : null;
 
   if (! empty($atts['ids'])) {
     // 'ids' is explicitly ordered, unless you specify otherwise.
@@ -19,7 +25,7 @@ function parse_gallery_shortcode($atts) {
   extract(shortcode_atts(array(
     'orderby'    => 'menu_order ASC, ID ASC',
     'include'    => '',
-    'id'         => $post->ID,
+    'id'         => $post_id,
     'itemtag'    => 'dl',
     'icontag'    => 'dt',
     'captiontag' => 'dd',
@@ -74,3 +80,10 @@ function parse_gallery_shortcode($atts) {
 
   return $output;
 }
+
+add_filter("use_default_gallery_style", "__return_false");
+
+remove_shortcode("gallery");
+
+add_shortcode("gallery", "get_slide_gallery");
+

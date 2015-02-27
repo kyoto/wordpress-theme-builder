@@ -1,8 +1,8 @@
 <?php
-
-//
-// Advance Custom Fields related helpers
-//
+/**
+ * Advance Custom Fields related helpers
+ * @package helpers/acf
+ */
 
 
 // Enable ACF options
@@ -10,20 +10,34 @@ if (function_exists("acf_add_options_page")) {
   acf_add_options_page();
 }
 
-// Returns an option from the Advanced Custom Field options of a key
+
+/**
+ * Returns an option from the Advanced Custom Field options of a key
+ *
+ * @param striing $key The acf key
+ */
 function k($key) {
   return get_field($key, "option");
 }
 
 
-
+/**
+ * Return an acf page
+ *
+ * @param acf_object $content The acf content object which contains a page's content
+ */
 function get_acf_page($content) {
   global $post;
 
   $output = "";
 
+  if (empty($content)) {
+    return "";
+  }
+
   foreach ($content as $section) {
     switch ($section["acf_fc_layout"]) {
+      // Display the page as a single column layout
       case "column-1":
         $contents = $section["content"];
         $output  .= "<div class='row'><div class='col-sm-12'>
@@ -31,6 +45,7 @@ function get_acf_page($content) {
           </div></div>";
         break;
 
+      // Display the page as a 2 column layout
       case "column-2":
         $column_1 = $section["column-1"];
         $column_2 = $section["column-2"];
@@ -49,10 +64,17 @@ function get_acf_page($content) {
 }
 
 
-// Returns the markup for an image gallery.
-// TODO: Update to reflect new JQuery plugin
-// TODO: Adapt WooCommerce to use new jQuery plugin markup
-// TODO: Set the options properly
+/**
+ * Returns the HTML template for an image gallery
+ *
+ * @param array $images An array of acf images
+ * @param array $options An associative array of options to configure the gallery
+ *
+ * @todo Update to reflect new JQuery plugin
+ * @todo Adapt WooCommerce to use new jQuery plugin markup
+ * @todo Set the options properly
+ *
+ */
 function get_gallery($images, $options = null) {
   $name = $options["name"];
 
@@ -88,8 +110,16 @@ function get_gallery($images, $options = null) {
   return $output;
 }
 
-// TODO: Determine whether this is ACF dependant
-// TODO: Set the options properly
+
+/**
+ * Returns the HTML template for an image gallery
+ *
+ * @param array $images an array of acf images
+ * @param array $options an associative array of options to configure the gallery
+ *
+ * @todo Set the options properly
+ *
+ */
 function get_carousel($images, $options = null) {
   $links_output  = "";
   $images_output = "";
@@ -117,4 +147,3 @@ function get_carousel($images, $options = null) {
   return $output;
 }
 
-// render_images ( style => 'gallery|carousel|')

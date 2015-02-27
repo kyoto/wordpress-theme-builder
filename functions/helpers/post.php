@@ -1,8 +1,15 @@
 <?php
+/**
+ * Post related helpers
+ * @package helpers/post
+ */
 
-// Post related helpers
-
-// Find a page by its slug
+/**
+ * Find a page by its slug
+ *
+ * @param $slug slug to search against
+ * @param $postType post type to search against
+ */
 function get_post_by_slug($slug, $postType = "page") {
   $args = array(
     "name"           => $slug,
@@ -15,7 +22,13 @@ function get_post_by_slug($slug, $postType = "page") {
   return empty($posts) ? null : $posts[0];
 }
 
-// Get all the children of a page
+
+/**
+ * Get all the children of a page
+ *
+ * @param $parent_id parent id to search against
+ * @param $postType post type to search against
+ */
 function get_post_children($parent_id, $postType = "page") {
   $args = array(
     "post_parent" => $parent_id,
@@ -28,8 +41,13 @@ function get_post_children($parent_id, $postType = "page") {
   return empty($posts) ? null : $posts;
 }
 
-// Output embed script for Disqus
-// TODO: clean up syntax
+
+/**
+ * Output embed script for Disqus
+ *
+ * @param $disqus_shortname disqus shortname
+ * @todo clean up syntax
+ */
 function render_disqus($disqus_shortname) {
   global $post;
   wp_enqueue_script('disqus_embed','http://'.$disqus_shortname.'.disqus.com/embed.js');
@@ -42,7 +60,12 @@ function render_disqus($disqus_shortname) {
   </script>';
 }
 
-// Return the categories of a post id
+
+/**
+ * Return the categories of a post id
+ *
+ * @param $post_id Post id to search against
+ */
 function get_categories_by_post_id($post_id) {
   $values = array();
   $categories = wp_get_post_categories($post_id);
@@ -53,7 +76,10 @@ function get_categories_by_post_id($post_id) {
   return $values;
 }
 
-// Return the number of comments of the current post
+
+/**
+ * Return the number of comments of the current post
+ */
 function get_comments_count() {
   $num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 

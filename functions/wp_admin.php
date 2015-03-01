@@ -9,7 +9,7 @@
  * @ignore
  */
 function load_custom_wp_admin_style() {
-  wp_register_style("custom_wp_admin_css", get_template_directory_uri() . "/admin.css", false, "1.0.0");
+  wp_register_style("custom_wp_admin_css", get_template_directory_uri() . "/assets/admin.css", false, "1.0.0");
   wp_enqueue_style("custom_wp_admin_css");
 }
 add_action("admin_enqueue_scripts", "load_custom_wp_admin_style");
@@ -26,7 +26,7 @@ function tiny_mce_options( $init ) {
     "/wp-includes/js/tinymce/skins/lightgray/content.min.css",
     "/wp-includes/css/dashicons.min.css",
     "/wp-includes/js/tinymce/skins/wordpress/wp-content.css",
-    get_template_directory_uri() . "/admin.css"
+    get_template_directory_uri() . "/assets/admin.css"
   );
 
   $init["block_formats"]              = "Header 1=h1;Header 2=h2;Text=p";

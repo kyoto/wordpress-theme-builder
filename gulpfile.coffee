@@ -49,13 +49,11 @@ gulp.task "php", ->
   gulp.src paths.php
     .pipe gulp.dest(paths.build)
 
-gulp.task "coffee", (cb) ->
+gulp.task "js", (cb) ->
   gulp.src paths.js.coffee
     .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.base)
-  cb()
 
-gulp.task "js", ->
   gulp.src require(paths.js.app)
     .pipe plumber()
     .pipe concat("index.js")
@@ -87,7 +85,7 @@ gulp.task "clean", (cb) ->
 
 gulp.task "default", ->
   gulp.start "clean"
-  gulp.start "fonts", "images", "php", "coffee", "js", "css", "wordpress"
+  gulp.start "fonts", "images", "php", "js", "css", "wordpress"
 
 gulp.task "watch", ->
   gulp.start "default"
@@ -95,6 +93,6 @@ gulp.task "watch", ->
   watch paths.fonts,     -> gulp.start ["fonts"]
   watch paths.images,    -> gulp.start ["images"]
   watch paths.php,       -> gulp.start ["php"]
-  watch paths.js.app,    -> gulp.start ["coffee", "js"]
-  watch paths.js.coffee, -> gulp.start ["coffee", "js"]
+  watch paths.js.app,    -> gulp.start ["js"]
+  watch paths.js.coffee, -> gulp.start ["js"]
   watch paths.css.less,  -> gulp.start ["css"]

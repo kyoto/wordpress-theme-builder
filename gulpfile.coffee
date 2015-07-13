@@ -80,7 +80,8 @@ gulp.task "wordpress", ->
     .pipe gulp.dest(paths.build)
 
 gulp.task "clean", (cb) ->
-  del.sync(["#{paths.build}/images/**", "#{paths.build}/images", "#{paths.build}*"], { force: true})
+  del.sync(["#{paths.build}/images/**", "#{paths.build}/images", "#{paths.build}*"], {force: true})
+
   cb()
 
 gulp.task "default", ->

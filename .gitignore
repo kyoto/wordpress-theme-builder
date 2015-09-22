@@ -1,9 +1,1 @@
-/.build
 /node_modules
-/npm-debug.log
-
-/Movefile
-
-/assets/stylesheets/css/maps/
-/assets/javascripts/js/maps/
-/assets/javascripts/js/index.js

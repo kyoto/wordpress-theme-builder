@@ -16,8 +16,8 @@
   <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <?php wp_enqueue_style("index", "/assets/index.css", array(), "", "all"); ?>
-  <?php wp_enqueue_script("index", "/assets/index.js", array(), "", false); ?>
+  <?php wp_enqueue_style("index", "/index.css", array(), "", "all"); ?>
+  <?php wp_enqueue_script("index", "/index.js", array(), "", false); ?>
   <?php wp_meta(); ?>
   <?php wp_head(); ?>
 

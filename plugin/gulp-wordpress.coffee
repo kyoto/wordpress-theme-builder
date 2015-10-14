@@ -20,16 +20,15 @@ watch      = require "gulp-watch"
 
 regex_all     = "/**/*"
 
-theme_name        = "THEME"
-theme_url         = "../theme"
-wordpress_url     = "../../wordpress"
-wordpress_plugins = []
+config = require "../theme/config.coffee"
 
-
-require "../theme/config.coffee"
-
+theme_name        = config.theme_name        or "THEME"
+theme_url         = config.theme_url         or "../theme"
+wordpress_url     = config.wordpress_url     or "../../wordpress"
+wordpress_plugins = config.wordpress_plugins or []
 
 output_url = "#{wordpress_url}/wp-content/themes/#{theme_name}"
+
 paths =
   "fonts":
     "src": ["#{theme_url}/assets/fonts/#{regex_all}"]
@@ -63,7 +62,8 @@ production = !!(yargs.argv.production)
 
 
 process.stdout.write("Theme Name: #{theme_name}\n")
-gulpif(production, process.stdout.write("Compiling for Production\n\n"))
+process.stdout.write("Compiling for Production\n\n") if production
+
 
 gulp.task "fonts", ->
   gulp.src paths.fonts.src
@@ -83,7 +83,9 @@ gulp.task "js", (cb) ->
     .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.base)
 
-  gulp.src require(paths.js.app)
+  js_files = ("#{paths.js.base}/#{js}" for js in require(paths.js.app))
+
+  gulp.src js_files
     .pipe plumber()
     .pipe concat("index.js")
     .pipe gulpif(production, uglify())

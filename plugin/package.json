@@ -11,14 +11,17 @@
     "gulp-coffee": "*",
     "gulp-concat": "*",
     "gulp-flatten": "*",
+    "gulp-htmlclean": "*",
     "gulp-if": "*",
     "gulp-order": "*",
     "gulp-plumber": "*",
-    "gulp-ruby-sass": "*",
+    "gulp-ruby-sass": "1.4.0",
     "gulp-sourcemaps": "*",
+    "gulp-sizereport": "*",
+    "gulp-imagemin": "*",
     "gulp-uglify": "*",
     "gulp-uglifycss": "*",
-    "gulp-watch": "*",
+    "gulp-watch": "4.2.2",
     "yargs": "*"
   }
 }

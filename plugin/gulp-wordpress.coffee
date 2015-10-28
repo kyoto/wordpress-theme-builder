@@ -23,50 +23,49 @@ uglifycss  = require "gulp-uglifycss"
 unzip      = require "gulp-unzip"
 watch      = require "gulp-watch"
 
-regex_all     = "/**/*"
+regex_all = "/**/*"
 
 
 config = require "../theme/config.coffee"
 
 
-theme_name        = config.theme_name        or "THEME"
-theme_url         = config.theme_url         or "../theme"
-wordpress_url     = config.wordpress_url     or "../../wordpress"
+theme_name    = config.theme_name        or "THEME"
+theme_url     = config.theme_url         or "../theme"
+wordpress_url = config.wordpress_url     or "../../wordpress"
 
-output_url        = "#{wordpress_url}/wp-content/themes/#{theme_name}"
+output_url    = "#{wordpress_url}/wp-content/themes/#{theme_name}"
 
 # TODO: override the paths with config
 paths =
-  "fonts":
-    "src": ["#{theme_url}/assets/fonts/#{regex_all}"]
-    "dest": "#{output_url}/fonts/"
-  "images":
-    "src": ["#{theme_url}/assets/images/#{regex_all}"]
-    "dest": "#{output_url}/images/"
-  "wordpress":
-    "src": ["#{theme_url}/wordpress/#{regex_all}"]
-    "images":
-      "src": "#{wordpress_url}/wp-content/uploads"
-      "backup": "#{wordpress_url}/wp-content/uploads_backup/"
-
-  "plugins":
-    "src": "#{theme_url}/plugins"
-    "dest": "#{wordpress_url}/wp-content/plugins"
-  "php":
-    "src": [
+  fonts:
+    src: ["#{theme_url}/assets/fonts/#{regex_all}"]
+    dest: "#{output_url}/fonts/"
+  images:
+    src: ["#{theme_url}/assets/images/#{regex_all}"]
+    dest: "#{output_url}/images/"
+  wordpress:
+    src: ["#{theme_url}/wordpress/#{regex_all}"]
+    images:
+      src: "#{wordpress_url}/wp-content/uploads"
+      backup: "#{wordpress_url}/wp-content/uploads_backup/"
+  plugins:
+    src: "#{theme_url}/plugins"
+    dest: "#{wordpress_url}/wp-content/plugins"
+  php:
+    src: [
       "#{theme_url}/functions/#{regex_all}.*"
       "#{theme_url}/pages/#{regex_all}.php"
       "#{theme_url}/partials/#{regex_all}.php"
     ]
-    "dest": output_url
-  "js":
-    "app":    "#{theme_url}/assets/javascripts/coffee/index.coffee"
-    "base":   "#{theme_url}/assets/javascripts/js"
-    "coffee": "#{theme_url}/assets/javascripts/coffee/#{regex_all}.coffee"
-  "css":
-    "base": "#{theme_url}/assets/stylesheets/"
-    "sass": "#{theme_url}/assets/stylesheets/sass"
-    "bootstrap": ["./bower_components/bootstrap-sass/assets/stylesheets"]
+    dest: output_url
+  js:
+    app:    "#{theme_url}/assets/javascripts/coffee/index.coffee"
+    base:   "#{theme_url}/assets/javascripts/js"
+    coffee: "#{theme_url}/assets/javascripts/coffee/#{regex_all}.coffee"
+  css:
+    base: "#{theme_url}/assets/stylesheets/"
+    sass: "#{theme_url}/assets/stylesheets/sass"
+    bootstrap: ["./bower_components/bootstrap-sass/assets/stylesheets"]
 
 
 # Flag for compiling theme with production settings
@@ -77,6 +76,7 @@ process.stdout.write("\n\n==================================================\n")
 process.stdout.write("Theme Name: #{theme_name}\n")
 process.stdout.write("Compiling for Production\n") if production
 process.stdout.write("==================================================\n\n\n")
+
 
 gulp.task "init", ->
   #TODO: generate the base assets folder
@@ -132,6 +132,12 @@ gulp.task "wordpress", ->
   gulp.src paths.wordpress.src
     .pipe gulp.dest(output_url)
 
+gulp.task "minify_js", ->
+  # TODO: List file sizes
+  gulp.src "#{paths.js.base}/*.js"
+    .pipe uglify()
+    .pipe gulp.dest("#{paths.js.base}/../min")
+
 gulp.task "optimize_uploads", ->
   # Optimize uploaded images
   gulp.src "#{paths.wordpress.images.src}#{regex_all}"
@@ -151,7 +157,7 @@ gulp.task "clean", (cb) ->
   bower().pipe gulp.dest("./bower_components")
 
   # Clear out all folders in the theme
-  del.sync(["#{output_url}/images/**", "#{output_url}/images", "#{output_url}/*"], {force: true})
+  del.sync(["#{output_url}/images/**", "#{output_url}/images", "#{output_url}/*", output_url], force: true)
   cb()
 
 gulp.task "default", ->

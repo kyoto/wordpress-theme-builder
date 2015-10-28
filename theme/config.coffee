@@ -1,6 +1,6 @@
-theme_name        = ""
-wordpress_url     = "../../wordpress"
-wordpress_plugins = ""
+module.exports =
+  theme_name:    ""
+  wordpress_url: "../../wordpress"
 
 # paths = ""
 

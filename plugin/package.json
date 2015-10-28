@@ -21,6 +21,7 @@
     "gulp-imagemin": "*",
     "gulp-uglify": "*",
     "gulp-uglifycss": "*",
+    "gulp-unzip": "*",
     "gulp-watch": "4.2.2",
     "yargs": "*"
   }

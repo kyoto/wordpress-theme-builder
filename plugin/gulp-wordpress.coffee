@@ -2,7 +2,6 @@
 # TODO: automate the process of storing minified files
 # TODO: allow paths to be overwritten
 # TODO: Find a way to have index.coffee update on watch
-# gulp
 
 gulp       = require "gulp"
 yargs      = require "yargs"
@@ -21,6 +20,7 @@ sizereport = require "gulp-sizereport"
 sourcemaps = require "gulp-sourcemaps"
 uglify     = require "gulp-uglify"
 uglifycss  = require "gulp-uglifycss"
+unzip      = require "gulp-unzip"
 watch      = require "gulp-watch"
 
 regex_all     = "/**/*"
@@ -32,7 +32,6 @@ config = require "../theme/config.coffee"
 theme_name        = config.theme_name        or "THEME"
 theme_url         = config.theme_url         or "../theme"
 wordpress_url     = config.wordpress_url     or "../../wordpress"
-wordpress_plugins = config.wordpress_plugins or []
 
 output_url        = "#{wordpress_url}/wp-content/themes/#{theme_name}"
 
@@ -51,7 +50,7 @@ paths =
       "backup": "#{wordpress_url}/wp-content/uploads_backup/"
 
   "plugins":
-    "src": ["#{theme_url}/assets/plugins"]
+    "src": "#{theme_url}/plugins"
     "dest": "#{wordpress_url}/wp-content/plugins"
   "php":
     "src": [
@@ -79,6 +78,9 @@ process.stdout.write("Theme Name: #{theme_name}\n")
 process.stdout.write("Compiling for Production\n") if production
 process.stdout.write("==================================================\n\n\n")
 
+gulp.task "init" ->
+  #TODO: generate the base assets folder
+  #TODO: pull a copy of the latest wordpress and setup the folder
 
 gulp.task "fonts", ->
   gulp.src paths.fonts.src
@@ -138,10 +140,11 @@ gulp.task "optimize_uploads", ->
     .pipe imagemin(progressive: true)
     .pipe gulp.dest(paths.wordpress.images.src)
 
-gulp.task "plugins", ->
-  # TODO: write this
-  # Download and unzip plugins into source plugins folder, according to URL
-  # Compare folders and copy to actual plugins folder if not.
+gulp.task "plugins", (cb) ->
+  # TODO: Check if folder exists in wp, if not copy over
+  gulp.src "#{paths.plugins.src}/#{regex_all}.zip"
+    .pipe unzip()
+    .pipe gulp.dest(paths.plugins.dest)
 
 gulp.task "clean", (cb) ->
   # Set up bower to obtain css/javascript libraries
@@ -154,7 +157,6 @@ gulp.task "clean", (cb) ->
 gulp.task "default", ->
   gulp.start "clean"
   gulp.start "fonts", "images", "php", "js", "css", "wordpress", "plugins"
-
 
 gulp.task "watch", ->
   gulp.start "default"

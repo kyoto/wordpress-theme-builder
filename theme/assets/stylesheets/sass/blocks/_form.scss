@@ -1,0 +1,378 @@
+.wpcf7 {
+  &-not-valid-tip {
+    color: $error-color;
+    font-family: $serif-font-family;
+    letter-spacing: 1px;
+    padding: 0px 5px 10px;
+    text-align: left;
+    font-size: 12px;
+    display: block;
+    margin-top: -30px;
+  }
+  &-validation-errors {
+    background-color: lighten($error-color, 60%);
+    color: $error-color;
+    font-family: $serif-font-family;
+    letter-spacing: 1px;
+    font-size: 12px;
+    margin: 40px 0px;
+    padding: 20px 20px;
+  }
+  &-not-valid {
+    color: $light-color;
+    background-color: lighten($error-color, 30%);
+  }
+  &-mail-sent-ok {
+    border: 2px $success-color solid;
+    color: $success-color;
+    font-family: $serif-font-family;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0px;
+    text-align: center;
+    padding: 30px 20px;
+  }
+  &-checkbox {
+    text-align: left;
+    display: block;
+  }
+
+  @include phone {
+    // margin-right: 0px;
+    padding-bottom: 50px;
+  }
+  @include tablet {
+    // margin-right: 10px;
+    // padding: 0px;
+  }
+}
+
+.screen-reader-response {
+  display: none;
+}
+
+.form {
+  @extend .container;
+
+  &__row {
+    @extend .row;
+  }
+  &__col {
+    @extend .col-half;
+    text-align: left;
+
+    @include phone {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    @include tablet {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    &-full {
+      @extend .col-full;
+    }
+  }
+  &__label {
+    color: #888;
+    display: block;
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 20px;
+    margin: 0;
+    padding: 0 5px;
+  }
+  &__fieldset {
+    border: 1px #cbcbcb solid;
+    text-align: center;
+    margin-top: 30px;
+    padding: 40px 30px 10px;
+  }
+  &__file-upload {
+    text-align: center;
+    .wpcf7-not-valid-tip {
+      text-align: center;
+    }
+  }
+  &__confirmation {
+    color: $dark-base-color;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 20px;
+  }
+  &__footer {
+    text-align: right;
+    padding-bottom: 50px;
+    position: relative;
+
+    img.ajax-loader {
+      display: block;
+      height: 30px;
+      left: 10px;
+      position: absolute;
+      top: 25px;
+      width: 30px;
+
+      @include phone {
+
+        position: relative;
+        margin: 20px auto;
+      }
+    }
+  }
+}
+
+.button {
+  color: $selected-color;
+  border: 1px $selected-color solid;
+  display: inline-block;
+  font-size: 18px;
+  font-style: italic;
+  letter-spacing: 1px;
+  margin-top: 35px;
+  padding: 15px 25px;
+  transition: background-color 0.5s, border-color 0.5s, color 0.5s;
+
+  &__download {
+    padding-right: 50px;
+    background-image: url(images/icon-download.svg);
+    background-position: 95% 50%;
+    background-repeat: no-repeat;
+    background-size: 25px;
+
+    &:hover {
+      background-image: url(images/icon-download-white.svg);
+    }
+  }
+
+  &:hover {
+    background-color: $selected-color;
+    border-color: $selected-color;
+    color: $light-color;
+    transition: background-color 0s, border-color 0s, color 0s;
+  }
+  &:hover:active {
+    color: $dark-base-color;
+  }
+
+  @include phone {
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.input {
+  -webkit-appearance: none;
+
+  &__hidden {
+    display: none;
+  }
+  &__text {
+    border-radius: 0px;
+    border: 1px #cbcbcb solid;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-style: italic;
+    font-weight: 100;
+    height: 56px;
+    letter-spacing: 1px;
+    line-height: 46px;
+    margin-bottom: 30px;
+    padding: 0px 20px;
+    vertical-align: top;
+    width: 100%;
+
+    &:focus {
+      transition: 0s;
+    }
+
+    @include phone {
+      margin-top: 10px;
+      padding: 0px 10px;
+    }
+    @include large-desktop {
+      font-size: 20px;
+      height: 86px;
+      padding: 0px 30px;
+    }
+  }
+  &__date {
+    border-radius: 0px;
+    border: 1px #cbcbcb solid;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-style: italic;
+    font-weight: 100;
+    height: 56px;
+    letter-spacing: 1px;
+    line-height: 46px;
+    margin-bottom: 30px;
+    padding: 0px 20px;
+    vertical-align: top;
+    width: 100%;
+
+    &:focus {
+      transition: 0s;
+    }
+
+    @include phone {
+      margin-top: 10px;
+      padding: 0px 10px;
+    }
+    @include large-desktop {
+      font-size: 20px;
+      height: 86px;
+      padding: 0px 30px;
+    }
+  }
+  &__textarea {
+    -webkit-appearance: none;
+
+    border-radius: 0px;
+    border: 1px #cbcbcb solid;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-style: italic;
+    font-weight: 100;
+    letter-spacing: 1px;
+    line-height: 28px;
+    margin-bottom: 30px;
+    min-height: 100px;
+    padding: 20px;
+    width: 100%;
+
+    @include phone {
+      margin-top: 10px;
+      padding: 10px;
+    }
+    @include large-desktop {
+      font-size: 20px;
+      line-height: 36px;
+      padding: 30px 30px;
+    }
+  }
+  &__checkbox {
+    margin-bottom: 100px;
+    transition: 0s;
+
+    .wpcf7-list-item {
+      display: inline-block;
+      padding: 0px;
+      margin: 0px;
+      border: 1px #eee solid;
+      margin: 10px;
+      transition: 0.5s;
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      label {
+        font-size: 0px;
+      }
+
+      &-label {
+        color: $dark-base-color;
+        font-size: 15px;
+        display: inline-block;
+        text-align: center;
+        padding: 20px 40px;
+        width: 170px;
+        &:hover {
+          cursor: pointer;
+        }
+
+        @include phone {
+          padding: 10px;
+          width: auto;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($selected-color, 20%);
+      }
+      &--selected,
+      &--selected:hover {
+        background-color: $selected-color;
+        border-color: $selected-color;
+      }
+
+      @include phone {
+        margin: 0px 10px 10px 0px;
+        text-align: center;
+        width: 45%;
+      }
+    }
+
+    &--selected {
+      background-color: $selected-color;
+      color: $light-color;
+      transition: 0s;
+
+      &:hover {
+        background-color: $selected-color;
+      }
+    }
+  }
+  &__select {
+    font-style: italic;
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }
+  &__file-upload {
+    border-radius: 0px;
+    border: 1px #cbcbcb solid;
+    font-family: $base-font-family;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 100;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    padding: 20px 20px;
+    width: 230px;
+  }
+
+  &__submit {
+    -webkit-appearance: none;
+
+    @extend .button;
+    background-color: transparent;
+    margin-top: 10px;
+    padding: 20px 50px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+select {
+  -webkit-appearance: none;
+
+  background: transparent;
+  border: none;
+  border: 1px #cbcbcb solid;
+  border-radius: 0px;
+  background-image: url(images/dropdown-arrow.png);
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  color: #aaa;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  font-weight: 100;
+  letter-spacing: 1px;
+  line-height: 54px;
+  margin-top: 30px;
+  padding: 0px 40px 0px 20px;
+  width: 100%;
+
+  @include large-desktop {
+    font-size: 20px;
+    padding: 15px 30px;
+  }
+}

@@ -1,0 +1,32 @@
+.catering_menu {
+  @extend .container;
+
+  .row {
+    margin-bottom: 100px;
+  }
+
+  &__heading {
+    display: none;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__item {
+    display: none;
+    padding-bottom: 200px;
+  }
+  &__link {
+  }
+  &__item:first-child {
+    display: block;
+  }
+
+  &__navigation {
+   margin-bottom: 40px;
+
+   &--link {
+      font-size: 24px;
+    }
+  }
+}

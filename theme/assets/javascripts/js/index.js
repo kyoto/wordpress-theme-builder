@@ -1,1 +1,1 @@
-module.exports = ["./assets/javascripts/js/jquery-1.11.2.js", "./assets/javascripts/js/application.js"];
+module.exports = ["jquery-1.11.3", "helpers", "application"];

@@ -1,0 +1,213 @@
+:focus {
+  outline: none;
+}
+::selection {
+  background: $hover-color;
+  color: $light-color;
+}
+::-moz-selection {
+  background: $hover-color;
+  color: $light-color;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+.body {
+  // background-color: $selected-color;
+  color: $base-color;
+  font-family: $base-font-family;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 27px;
+  letter-spacing: 2px;
+  min-height: 100%;
+  margin: 0px;
+  padding: 0px;
+
+  @include phone {
+    font-size: 15px;
+    line-height: 26px;
+  }
+}
+
+h1, .h1 {
+  font-family: $header-font-family;
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+h2, .h2 {
+  font-family: $header-font-family;
+  text-transform: uppercase;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 10px 0px;
+
+  &--centered {
+    text-align: center;
+  }
+}
+
+h3, .h3 {
+  color: #3a3a3a;
+  font-family: $header-font-family;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+h4, .h4 {
+  color: $dark-base-color;
+  font-family: $header-font-family;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-size: 24px;
+  font-style: italic;
+  line-height: 34px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.img {
+  margin-bottom: 20px;
+
+  &__alignright {
+    float: right;
+    margin: 0px 0px 20px 20px;
+  }
+  &__alignleft {
+    float: left;
+    margin: 0px 20px 20px 0px;
+  }
+  &__aligncenter {
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    text-align: center;
+  }
+}
+
+p {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  margin: 0px 0px 50px;
+
+  @include tablet {
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
+
+strong, b {
+  color: $dark-base-color;
+  font-size: 24px;
+  font-weight: 100;
+  line-height: 27px;
+
+  @include tablet {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+em {
+  color: $dark-base-color;
+  font-weight: 700;
+}
+
+ul {
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 22px;
+  padding-left: 20px;
+  margin: 0px 0px 30px;
+
+  @include large-desktop {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}
+
+
+// Wordpress
+.alignnone {
+  margin: 0px 0px 20px 0px;
+}
+
+.alignright {
+  float: right;
+  margin: 0px 0px 20px 20px;
+}
+
+.alignleft {
+  float: left;
+  margin: 0px 20px 20px 0px;
+}
+
+.aligncenter {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  text-align: center;
+}
+
+hr {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  border: none;
+  border-top: 1px solid $border-color;
+  clear: both;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0px;
+
+  @include phone {
+    margin: 20px auto 50px;
+  }
+}
+
+tr {
+  vertical-align: top;
+}
+
+td {
+  padding: 0px 10px 0px 0px;
+}
+
+a {
+  color: $selected-color;
+  transition: color 0.5s;
+  text-decoration: none;
+
+  &:hover {
+    color: $hover-color;
+    transition: color 0s;
+    text-decoration: none;
+  }
+  &:focus {
+  }
+  &:hover:active {
+    color: $visited-color;
+  }
+  img {
+    border: 0px;
+  }
+}
+

@@ -1,0 +1,144 @@
+// Responsive
+@mixin phone {
+  @media (max-width: $screen-phone) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $screen-phone) and (max-width: $screen-desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $screen-desktop) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $screen-lg-desktop) {
+    @content;
+  }
+}
+
+
+@mixin portrait {
+  @media screen and (min-aspect-ratio: 9/16) {
+    @content;
+  }
+}
+
+// Layout
+.section {
+  margin: 0px;
+  padding: 0px;
+
+  &__full_height {
+    min-height: 900px;
+  }
+}
+
+.container {
+  @include container-fixed();
+
+  @include phone {
+    // width: $screen-phone;
+  }
+  @include tablet {
+    // width: $screen-tablet;
+  }
+  @include desktop {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: $screen-desktop;
+  }
+  @include large-desktop {
+    width: 1300px;
+  }
+}
+
+.row {
+  @include make-row;
+
+  &-no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > [class^="col-"],
+    > [class*=" col-"] {
+      padding-right: 0;
+      padding-left: 0;
+
+      p {
+        padding: 0px 20px;
+        margin: 0px 0px 50px;
+      }
+    }
+  }
+
+  &-centered {
+    text-align: center;
+  }
+
+  @include phone {
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+}
+
+// Create shortcut column classes
+@for $i from 1 to $grid-columns {
+  .col-#{$i} {
+    @include make-sm-column($i);
+  }
+}
+
+
+.col {
+  &-sixth {
+    @include make-sm-column(2);
+  }
+
+  &-quarter {
+    @include make-sm-column(3);
+  }
+
+  &-third {
+    @include make-sm-column(4);
+  }
+
+  &-half {
+    @include make-sm-column(6);
+  }
+
+  &-two-thirds {
+    @include make-sm-column(8);
+  }
+
+  &-three-quarters {
+    @include make-sm-column(9);
+  }
+
+  &-full {
+    @include make-sm-column(12);
+  }
+
+  &-centered {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -4px;
+
+    @include phone {
+      float: none;
+    }
+    @include tablet {
+      float: none;
+    }
+    @include desktop {
+      float: none;
+    }
+  }
+}

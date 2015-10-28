@@ -1,0 +1,127 @@
+.footer {
+  background-color: $footer-bg-color;
+
+  &__content {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: $light-color;
+    font-size: 14px;
+    padding: 150px 0px 0px;
+    position: relative;
+
+    h1 {
+      font-size: 18px;
+      margin: 0px 0px 30px;
+    }
+
+    .container {
+      width: 600px;
+
+      @include phone {
+        width: auto;
+      }
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__arrow {
+    // position: absolute;
+    // bottom: 0px;
+    // width: 100%;
+
+    &-background {
+      display: block;
+      margin: auto;
+      position: relative;
+      height: 90px;
+      width: 180px;
+      // background-image: url(images/footer-arrow-background.svg);
+      // background-repeat: no-repeat;
+      // background-position: 50% 1px;
+      // background-size: 100%;
+
+      // > svg {
+      //   position: absolute;
+      //   display: block;
+      //   top: 0px;
+      //   left: 0px;
+      //   height: 90px;
+      //   width: 180px;
+      //   z-index: 10;
+      // }
+    }
+    &-link {
+      position: absolute;
+      height: 90px;
+      width: 180px;
+      bottom: 0px;
+      left: 50%;
+      margin-left: -90px;
+
+      svg {
+        display: block;
+        margin: 40px auto;
+        height: 30px;
+        width: 30px;
+      }
+
+      &:hover {
+        svg polyline {
+          stroke: $selected-color;
+        }
+      }
+    }
+  }
+
+  &__copyright {
+    color: $light-color;
+    font-size: 14px;
+    padding: 50px 0px;
+    text-align: center;
+
+    p {
+      font-size: 14px;
+      margin: 10px 0px 20px;
+    }
+  }
+
+}
+
+.navigation {
+  font-size: 14px;
+
+  &__secondary-link {
+    &--selected {
+      color: $selected-color;
+    }
+  }
+
+  &__footer {
+    text-transform: lowercase;
+    text-align: center;
+    margin: 0px;
+    &-item {
+      display: inline-block;
+
+      &:after {
+        color: $selected-color;
+        content: " •";
+        text-align: center;
+      }
+
+      &:last-child:after {
+        content: "";
+      }
+    }
+
+    &-link {
+      display: inline-block;
+      padding: 10px;
+    }
+  }
+}
+

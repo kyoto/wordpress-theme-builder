@@ -1,0 +1,135 @@
+//
+// Styles for wordpress' admin pages
+//
+
+// Login
+.login {
+  background: #fff;
+  h1 a {
+    background: url('images/logo.svg') 50% 50% no-repeat;
+  }
+}
+
+
+// // Page
+// .widefat tbody th.check-column,
+// .widefat tfoot th.check-column,
+// .widefat thead th.check-column {
+//   padding: 8px 0px 0px 3px;
+// }
+
+// .widefat td,
+// .widefat th {
+//   padding: 8px 0px 4px 0px;
+// }
+
+// td.plugin-title strong,
+// td.post-title strong {
+//   margin: 0px 0px 0px 10px;
+// }
+
+// .row-actions {
+//   padding: 0px 0px 0px 10px;
+//   a {
+//     font-size: 11px;
+//   }
+// }
+// .acf-field-wysiwyg {
+//   .acf-label {
+//     display: none;
+//   }
+//   .wp-media-buttons .button,
+//   .wp-media-buttons .button:active {
+//     margin: 3px;
+//   }
+
+// }
+// .acf-fields > .acf-field.acf-field-text {
+//   padding: 3px;
+
+//   .acf-label {
+//     margin: 0px;
+//     label {
+//       font-weight: normal;
+//       margin: 0px 3px;
+//     }
+//   }
+//   input[type="text"] {
+//     font-size: 20px;
+//     height: auto;
+//     line-height: 30px;
+//   }
+// }
+// .acf-fields > .acf-field.acf-field-wysiwyg {
+//   padding: 0px;
+//   .acf-editor-wrap .wp-editor-container {
+//     border-left: 0px;
+//     border-right: 0px;
+//     margin-bottom: -1px;
+//   }
+// }
+// .acf-fields > .acf-field.acf-field-wysiwyg:last-child {
+//   .acf-editor-wrap .wp-editor-container {
+//     border-left: 1px solid #E5E5E5;
+//   }
+// }
+
+// .wp-editor-container textarea.wp-editor-area {
+//   font-size: 14px;
+//   line-height: 20px;
+//   margin: 0px !important;
+// }
+
+// // Disable text toolbar
+
+// .wp-editor-tabs,
+// .quicktags-toolbar {
+//   display: none;
+// }
+
+// Attachment details
+
+label.setting[data-setting="caption"],
+label.setting[data-setting="alt"],
+label.setting[data-setting="description"] {
+  display: none;
+}
+
+
+.acf-fields > .acf-field {
+  padding: 5px;
+}
+
+
+// Tiny MCE mirrors how it looks on the public side
+// .mce-content-body {
+//   @import "variables";
+
+//   @import "bootstrap/variables";
+//   @import "bootstrap/mixins";
+
+//   @import "mixins";
+//   @import "reset";
+
+//   @import "application";
+//   @import "blocks/projects";
+//   @import "blocks/contact";
+
+
+//   @extend .body;
+
+//   border: none;
+//   padding: 10px;
+
+//   p {
+//     padding: 5px;
+//   }
+
+//   .container {
+//     border: 1px #e5e3ff solid;
+//   }
+//   .row {
+//     border: 1px #b5b0ff solid;
+//   }
+// }
+

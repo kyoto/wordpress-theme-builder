@@ -1,0 +1,24 @@
+// Global variables
+@import "variables";
+
+// Libraries
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Spec styles
+@import "mixins";
+@import "reset";
+@import "application";
+
+@import "lib/justifiedgallery";
+@import "lib/magnific-popup";
+@import "lib/slick";
+
+@import "blocks/form";
+@import "blocks/header";
+@import "blocks/footer";
+@import "blocks/menus";
+@import "blocks/sections";
+
+// Internet explorer
+@import "ie/ie8";

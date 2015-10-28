@@ -78,7 +78,7 @@ process.stdout.write("Theme Name: #{theme_name}\n")
 process.stdout.write("Compiling for Production\n") if production
 process.stdout.write("==================================================\n\n\n")
 
-gulp.task "init" ->
+gulp.task "init", ->
   #TODO: generate the base assets folder
   #TODO: pull a copy of the latest wordpress and setup the folder
 
@@ -104,8 +104,8 @@ gulp.task "js", (cb) ->
     .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.base)
 
-  # Fetch the list of js files to compile
-  js_files = ("#{paths.js.base}/#{js}" for js in require(paths.js.app))
+  # Concat and minify all javascript files
+  js_files = ("#{paths.js.base}/#{file_name}.js" for file_name in require(paths.js.app))
 
   gulp.src js_files
     .pipe concat("index.js")
@@ -161,10 +161,10 @@ gulp.task "default", ->
 gulp.task "watch", ->
   gulp.start "default"
 
-  watch paths.php.src,    -> gulp.start "php"
   watch paths.fonts.src,  -> gulp.start "fonts"
   watch paths.images.src, -> gulp.start "images"
-  watch paths.js.app,     -> gulp.start "js"
+  watch paths.php.src,    -> gulp.start "php"
   watch paths.js.coffee,  -> gulp.start "js"
+  watch paths.js.app,     -> gulp.start "js"
   watch paths.css.sass,   -> gulp.start "css"
 

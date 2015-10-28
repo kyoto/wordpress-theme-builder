@@ -1,0 +1,42 @@
+// Colors
+$dark-color:       #16131b;
+$light-color:      #ffffff;
+
+$base-color:       #868686;
+$dark-base-color:  #1f2933;
+$selected-color:   #eb966d;
+$hover-color:      #f2b399;
+$visited-color:    #b35230;
+$error-color:      #9a1513;
+$success-color:    #0f740a;
+$border-color:     #ffffff;
+
+$link-color:       $selected-color;
+$link-hover-color: $hover-color;
+
+
+$footer-bg-color: #131215;
+
+$grid-columns: 12;
+
+
+// Font
+$header-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$serif-font-family: $base-font-family;
+$base-font-size: 15px;
+$base-line-height: 27px;
+
+
+// Grids
+$grid-gutter-width: 40px;
+
+
+// $screem-mobile:    960px;
+// $screem-tablet:    960px;
+$screen-desktop:    1000px;
+$screen-lg-desktop: 1600px;
+
+
+// z-index for Magnific javascript plugin
+$mfp-z-index-base: 10100;

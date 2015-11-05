@@ -1,3 +1,4 @@
+# TODO: implement WP CLI for installing wordpress /
 # TODO: clean up paths for Wordpress / PHP
 # TODO: automate the process of storing minified files
 # TODO: allow paths to be overwritten
@@ -13,6 +14,7 @@ flatten    = require "gulp-flatten"
 gulpif     = require "gulp-if"
 htmlclean  = require "gulp-htmlclean"
 imagemin   = require "gulp-imagemin"
+livereload = require "gulp-livereload"
 order      = require "gulp-order"
 plumber    = require "gulp-plumber"
 sass       = require "gulp-ruby-sass"
@@ -82,6 +84,9 @@ gulp.task "init", ->
   #TODO: generate the base assets folder
   #TODO: pull a copy of the latest wordpress and setup the folder
 
+  # Set up bower to obtain css/javascript libraries
+  bower().pipe gulp.dest("./bower_components")
+
 gulp.task "fonts", ->
   gulp.src paths.fonts.src
     .pipe gulp.dest(paths.fonts.dest)
@@ -97,6 +102,7 @@ gulp.task "php", ->
     # Remove whitespace in the rendered HTML aspect in the PHP
     .pipe gulpif(production, htmlclean())
     .pipe gulp.dest(paths.php.dest)
+    .pipe livereload()
 
 gulp.task "js", (cb) ->
   # Compile all coffeescripts into javascript
@@ -112,6 +118,7 @@ gulp.task "js", (cb) ->
     .pipe gulpif(production, uglify())
     .pipe gulp.dest(output_url)
     .pipe sizereport(gzip: true, total: false)
+    .pipe livereload()
 
   # Internet explorer javascript
   gulp.src ["#{paths.js.base}/ie.js"]
@@ -126,6 +133,7 @@ gulp.task "css", ->
     .pipe gulpif(production, uglifycss())
     .pipe gulp.dest(output_url)
     .pipe sizereport(gzip: true, total: false)
+    .pipe livereload()
 
 gulp.task "wordpress", ->
   # Include any arbitrary wordpress files
@@ -153,8 +161,6 @@ gulp.task "plugins", (cb) ->
     .pipe gulp.dest(paths.plugins.dest)
 
 gulp.task "clean", (cb) ->
-  # Set up bower to obtain css/javascript libraries
-  bower().pipe gulp.dest("./bower_components")
 
   # Clear out all folders in the theme
   del.sync(["#{output_url}/images/**", "#{output_url}/images", "#{output_url}/*", output_url], force: true)
@@ -166,6 +172,8 @@ gulp.task "default", ->
 
 gulp.task "watch", ->
   gulp.start "default"
+
+  livereload.listen()
 
   watch paths.fonts.src,  -> gulp.start "fonts"
   watch paths.images.src, -> gulp.start "images"

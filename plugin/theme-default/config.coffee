@@ -1,6 +1,6 @@
 module.exports =
   theme_name:    ""
-  wordpress_url: "../../wordpress"
+  wordpress_url: "../wordpress"
 
 # paths = ""
 

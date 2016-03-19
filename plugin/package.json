@@ -1,11 +1,16 @@
 {
-  "name": "gulp-wordpress",
-  "description": "gulp configuration for a wordpress theme template",
+  "name": "wordpress-theme",
+  "description": "Generates a wordpress theme template",
   "version": "0.0.1",
+  "bin": {
+    "wp-theme": "./wp-theme.js"
+  },
   "dependencies": {
     "browserify": "*",
     "coffee-script": "*",
     "del": "*",
+    "fs": "*",
+    "path": "*",
     "gulp": "*",
     "gulp-bower": "*",
     "gulp-coffee": "*",

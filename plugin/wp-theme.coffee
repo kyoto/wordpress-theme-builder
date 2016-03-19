@@ -7,6 +7,8 @@
 gulp       = require "gulp"
 yargs      = require "yargs"
 del        = require "del"
+fs         = require "fs"
+path       = require "path"
 bower      = require "gulp-bower"
 coffee     = require "gulp-coffee"
 concat     = require "gulp-concat"
@@ -28,12 +30,16 @@ watch      = require "gulp-watch"
 regex_all = "/**/*"
 
 
-config = require "../theme/config.coffee"
 
+# config = require "./theme/config.coffee"
 
-theme_name    = config.theme_name        or "THEME"
-theme_url     = config.theme_url         or "../theme"
-wordpress_url = config.wordpress_url     or "../../wordpress"
+# theme_name    = config.theme_name        or "THEME"
+# theme_url     = config.theme_url         or "./theme"
+# wordpress_url = config.wordpress_url     or "../wordpress"
+
+theme_name    = "THEME"
+theme_url     = "#{path.resolve()}/theme"
+wordpress_url = "#{path.resolve()}/wordpress"
 
 output_url    = "#{wordpress_url}/wp-content/themes/#{theme_name}"
 
@@ -67,25 +73,26 @@ paths =
   css:
     base: "#{theme_url}/assets/stylesheets/"
     sass: "#{theme_url}/assets/stylesheets/sass"
-    bootstrap: ["./bower_components/bootstrap-sass/assets/stylesheets"]
+    bootstrap: ["#{__dirname}/bower_components/bootstrap-sass/assets/stylesheets"]
 
 
-# Flag for compiling theme with production settings
-production = !!(yargs.argv.production)
 
-
-process.stdout.write("\n\n==================================================\n")
-process.stdout.write("Theme Name: #{theme_name}\n")
-process.stdout.write("Compiling for Production\n") if production
-process.stdout.write("==================================================\n\n\n")
-
-
+# Gulp tasks
 gulp.task "init", ->
   #TODO: generate the base assets folder
   #TODO: pull a copy of the latest wordpress and setup the folder
 
   # Set up bower to obtain css/javascript libraries
-  bower().pipe gulp.dest("./bower_components")
+  bower().pipe gulp.dest("#{__dirname}/bower_components")
+
+  # Copy over themes directory if it doesnt exist
+  unless fs.exists(theme_url)
+    gulp.src "#{__dirname}/theme-default/#{regex_all}"
+      .pipe gulp.dest(theme_url)
+
+
+gulp.start "init"
+
 
 gulp.task "fonts", ->
   gulp.src paths.fonts.src
@@ -182,3 +189,16 @@ gulp.task "watch", ->
   watch paths.js.app,     -> gulp.start "js"
   watch paths.css.sass,   -> gulp.start "css"
 
+
+
+
+# Flag for compiling theme with production settings
+production = !!(yargs.argv.production)
+
+process.stdout.write("\n\n==================================================\n")
+process.stdout.write("Theme Name: #{theme_name}\n")
+process.stdout.write("Compiling for Production\n") if production
+process.stdout.write("==================================================\n\n\n")
+
+
+# gulp.start "watch"

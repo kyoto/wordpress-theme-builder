@@ -1,4 +1,4 @@
-gulp-wordpress
+wordpress theme
 ==============
 
 (Currently still in development)

@@ -1,0 +1,31 @@
+Gulp Wordpress
+
+provide the full wordpress theme building cycle
+build it like a vagrant recipe
+
+
+Level 1
+- Default Git Ignore
+- Coffeescript
+- Less
+- Image optimisation
+- Wordpress most basic required files
+- Livereload
+- Tests? WPCLI
+- Ability to extend folder structures for custom management of files
+
+Level 2
+- JQuery plugin management
+- Wordpress Plugin management
+  - Recommended plugins
+
+
+- Wordmove integration?
+- Helper functions
+  - Personal
+  - ACF Related
+
+- CSS Frameworks
+  - Bootstrap
+  - Bones
+  -

@@ -1,4 +1,4 @@
 .sass-cache
-/theme/assets/javascripts/min
-/plugin/bower_components
-/plugin/node_modules
+/theme-default/assets/javascripts/min
+/bower_components
+/node_modules

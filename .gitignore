@@ -1,5 +1,8 @@
+.cache
 .sass-cache
-/theme-default/assets/javascripts/min
+
 /bower_components
 /node_modules
-/wordpress
+
+/theme-default/assets/javascripts/min
+

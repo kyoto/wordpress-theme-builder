@@ -1,27 +1,27 @@
-gulp  = require "gulp"
-bower = require "gulp-bower"
-del   = require "del"
-fs    = require "fs"
-util  = require "util"
-watch = require "gulp-watch"
+gulp        = require "gulp"
+bower       = require "gulp-bower"
+del         = require "del"
+runSequence = require "run-sequence"
+util        = require "util"
+watch       = require "gulp-watch"
+
 
 h     = require "./helper"
 paths = require "./paths"
 
 
-gulp.task "init", ->
-  #TODO: generate the base assets folder
+gulp.task "init", (cb) ->
+  runSequence(
+    "bower",
+    "wordpress-init",
+    "default",
+    cb
+  )
 
-  # Initialize the wordpress instance
-  gulp.start "wordpress-init"
 
+gulp.task "bower", ->
   # Set up bower to obtain css/javascript libraries
   bower().pipe gulp.dest("#{paths.base}/bower_components")
-
-  # Copy over themes directory if it doesnt exist
-  unless fs.exists(paths.wordpress.theme.src)
-    gulp.src "#{paths.base}/theme-default/**/*"
-      .pipe gulp.dest(paths.wordpress.theme.src)
 
 
 gulp.task "clean", (cb) ->
@@ -36,7 +36,7 @@ gulp.task "clean", (cb) ->
 
 gulp.task "default", ->
   gulp.start "clean"
-  gulp.start "app", "images", "js", "css", "wordpress"
+  gulp.start "app", "images", "js", "css"
 
 
 gulp.task "watch", ->

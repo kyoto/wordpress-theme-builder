@@ -1,3 +1,5 @@
+# TODO: Find a way to have index.coffee update on watch
+
 gulp       = require "gulp"
 gulpif     = require "gulp-if"
 coffee     = require "gulp-coffee"
@@ -6,12 +8,13 @@ sizereport = require "gulp-sizereport"
 livereload = require "gulp-livereload"
 uglify     = require "gulp-uglify"
 
+h     = require "./helper"
 paths = require "./paths"
 
 
 gulp.task "js", (cb) ->
-  # Compile all coffeescripts into javascript
 
+  # Compile all coffeescripts into javascript
   gulp.src "#{paths.js.coffee}/**/*.coffee"
     .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.src)

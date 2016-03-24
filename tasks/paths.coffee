@@ -1,53 +1,50 @@
-path  = require "path"
-yargs = require "yargs"
+path        = require "path"
+objectMerge = require "object-merge"
+yargs       = require "yargs"
 
+
+h      = require "./helper"
+config = require "../theme/config"
 
 # Flag for compiling theme with production settings
 global.production = !!(yargs.argv.production)
 
+paths = {}
+
+paths.base = path.resolve()
+
+paths.wordpress =
+  version: "latest"
+  base: "#{paths.base}"
+  themeName: "THEME"
+  plugins: []
+
+# Override config
+paths.wordpress = objectMerge(paths.wordpress, config)
+
+paths.wordpress.theme =
+  src:  "#{paths.base}/theme"
+  dest: "#{paths.wordpress.base}/wordpress/wp-content/themes/#{paths.wordpress.themeName}"
 
 
-module.exports.base = path.resolve()
+paths.css =
+  sass: "#{paths.wordpress.theme.src}/assets/stylesheets/sass"
 
-theme_name = "THEME"
+paths.js =
+  src:    "#{paths.wordpress.theme.src}/assets/javascripts/js"
+  coffee: "#{paths.wordpress.theme.src}/assets/javascripts/coffee"
 
+paths.images =
+  src:  "#{paths.wordpress.theme.src}/assets/images"
+  dest: "#{paths.wordpress.theme.dest}/images/"
 
-wordpress =
-  base: "#{module.exports.base}/wordpress"
-  theme:
-    name: theme_name
-    src:  "#{module.exports.base}/theme"
-    dest: "#{module.exports.base}/wordpress/wp-content/themes/#{theme_name}"
-  plugins: [
-    "https://downloads.wordpress.org/plugin/contact-form-7.4.4.zip"
-    "https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.5.zip"
-    "https://downloads.wordpress.org/plugin/regenerate-thumbnails.zip"
-    "https://downloads.wordpress.org/plugin/restricted-site-access.5.1.zip"
-  ]
-
-
-module.exports.wordpress = wordpress
-
-
-module.exports.css =
-  sass: "#{wordpress.theme.src}/assets/stylesheets/sass"
-
-
-module.exports.js =
-  src:    "#{wordpress.theme.src}/assets/javascripts/js"
-  coffee: "#{wordpress.theme.src}/assets/javascripts/coffee"
-
-
-module.exports.images =
-  src:  "#{wordpress.theme.src}/assets/images"
-  dest: "#{wordpress.theme.dest}/images/"
-
-
-module.exports.app =
+paths.app =
   src:  [
-    "#{wordpress.theme.src}/app/**/*"
-    "#{wordpress.theme.src}/wordpress/**/*"
+    "#{paths.wordpress.theme.src}/app/**/*"
+    "#{paths.wordpress.theme.src}/wordpress/**/*"
   ]
-  dest: wordpress.theme.dest
+  dest: paths.wordpress.theme.dest
 
+
+module.exports = paths
 

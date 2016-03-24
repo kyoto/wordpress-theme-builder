@@ -1,28 +1,41 @@
+gulp       = require "gulp"
+gulpif     = require "gulp-if"
+coffee     = require "gulp-coffee"
+concat     = require "gulp-concat"
+sizereport = require "gulp-sizereport"
+livereload = require "gulp-livereload"
+uglify     = require "gulp-uglify"
+
+paths = require "./paths"
+
+
 gulp.task "js", (cb) ->
   # Compile all coffeescripts into javascript
 
   gulp.src "#{paths.js.coffee}/**/*.coffee"
     .pipe coffee(bare: true)
-    .pipe gulp.dest(paths.js.base)
+    .pipe gulp.dest(paths.js.src)
 
   # Concat and minify all javascript files
-  js_files = ("#{paths.js.base}/#{file_name}.js" for file_name in require("#{paths.js.coffee}/index.coffee"))
+  js_files = ("#{paths.js.src}/#{file_name}.js" for file_name in require("#{paths.js.coffee}/index.coffee"))
 
   gulp.src js_files
     .pipe concat("index.js")
-    .pipe gulpif(production, uglify())
-    .pipe gulp.dest(output_url)
+    .pipe gulpif(global.production, uglify())
+    .pipe gulp.dest(paths.wordpress.theme.dest)
     .pipe sizereport(gzip: true, total: false)
     .pipe livereload()
 
   # Internet explorer javascript
-  gulp.src ["#{paths.js.base}/ie.js"]
-    .pipe gulpif(production, uglify())
-    .pipe gulp.dest(output_url)
+  gulp.src ["#{paths.js.src}/ie.js"]
+    .pipe gulpif(global.production, uglify())
+    .pipe gulp.dest(paths.wordpress.theme.dest)
 
 
-gulp.task "minify_js", ->
+gulp.task "js_minify", ->
+
   # TODO: List file sizes
-  gulp.src "#{paths.js.base}/*.js"
+  gulp.src "#{paths.js.src}/*.js"
     .pipe uglify()
-    .pipe gulp.dest("#{paths.js.base}/../min")
+    .pipe gulp.dest("#{paths.js.src}/../min")
+

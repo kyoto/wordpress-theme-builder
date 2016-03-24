@@ -1,16 +1,29 @@
+gulp       = require "gulp"
+gulpif     = require "gulp-if"
+imagemin   = require "gulp-imagemin"
+livereload = require "gulp-livereload"
+
+
+h     = require "./helper"
+paths = require "./paths"
+
 
 gulp.task "images", ->
-  gulp.src paths.images.src
+  gulp.src "#{paths.images.src}/**/*"
     # Optimize images
     .pipe gulpif(production, imagemin(progressive: true))
     .pipe gulp.dest(paths.images.dest)
+    .pipe livereload()
 
 
-gulp.task "optimize_uploads", ->
+gulp.task "images_optimize_uploads", ->
 
   # Optimize uploaded images
-  gulp.src "#{paths.wordpress.images.src}**/*"
-    # Backup the images
-    .pipe gulp.dest(paths.wordpress.images.backup)
+  gulp.src "#{paths.wordpress.images.src}/**/*"
+
+    # Make a backup of the uploads
+    .pipe gulp.dest("#{paths.wordpress.base}/backup/wp-content/uploads_backup")
+
+    # Optimize images
     .pipe imagemin(progressive: true)
-    .pipe gulp.dest(paths.wordpress.images.src)
+    .pipe gulp.dest("#{paths.wordpress.base}/backup/wp-content/uploads")

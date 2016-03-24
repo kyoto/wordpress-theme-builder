@@ -1,14 +1,16 @@
-gulp        = require "gulp"
+gulp       = require "gulp"
+gulpif     = require "gulp-if"
+htmlclean  = require "gulp-htmlclean"
+livereload = require "gulp-livereload"
+
+h     = require "./helper"
+paths = require "./paths"
 
 
+gulp.task "app", ->
 
-# gulp.task "fonts", ->
-#   gulp.src paths.fonts.src
-#     .pipe gulp.dest(paths.fonts.dest)
-
-# gulp.task "php", ->
-#   gulp.src paths.php.src
-#     # Remove whitespace in the rendered HTML aspect in the PHP
-#     .pipe gulpif(production, htmlclean())
-#     .pipe gulp.dest(paths.php.dest)
-#     .pipe livereload()
+  # Include any arbitrary wordpress files
+  gulp.src paths.app.src
+    .pipe gulpif(global.production, htmlclean())
+    .pipe gulp.dest(paths.app.dest)
+    .pipe livereload()

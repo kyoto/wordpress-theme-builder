@@ -1,3 +1,12 @@
+gulp        = require "gulp"
+download    = require "gulp-download"
+runSequence = require "run-sequence"
+unzip       = require "gulp-unzip"
+
+
+h     = require "./helper"
+paths = require "./paths"
+
 
 gulp.task "wordpress-install", ->
   version  = "4.4.2"
@@ -5,46 +14,45 @@ gulp.task "wordpress-install", ->
   url      = "https://wordpress.org/#{filename}"
 
   # Remove wordpress
-  del.sync([wordpress_url], force: true)
+  del.sync([paths.wordpress.base], force: true)
+
+  # TODO: skip the download by storing the file in a cached location
 
   # Download the wordpress instance
   return download(url)
     .pipe unzip()
-    .pipe gulp.dest(root_url)
+    .pipe gulp.dest(paths.base)
+
 
 gulp.task "wordpress-remove-defaults", ->
 
   # Remove default themes and plugins
   del.sync([
-    "#{wordpress_url}/wp-content/themes/**/*/"
-    "#{wordpress_url}/wp-content/plugins/**/*/"
+    "#{paths.wordpress.base}/wp-content/themes/**/*/"
+    "#{paths.wordpress.base}/wp-content/plugins/**/*/"
+
     # Hack: Instead of hardcoding the plugin name, use a regex
-    "#{wordpress_url}/wp-content/plugins/hello.php"
+    "#{paths.wordpress.base}/wp-content/plugins/hello.php"
+
   ], force: true)
+
 
 gulp.task "wordpress-install-plugins", ->
 
   # Download the wordpress plugins
   i = 0
-  while i < plugins.length
-    download(plugins[i])
+  while i < paths.wordpress.plugins.length
+    download(paths.wordpress.plugins[i])
       .pipe unzip()
-      .pipe gulp.dest("#{wordpress_url}/wp-content/plugins")
+      .pipe gulp.dest("#{paths.wordpress.base}/wp-content/plugins")
 
     i++
 
+
+
+
 gulp.task "wordpress-init", (cb) ->
   # run_sequence "wordpress-install", "wordpress-remove-defaults", "wordpress-install-plugins", cb
-  run_sequence "wordpress-install-plugins", cb
+  runSequence "wordpress-install-plugins", cb
 
 
-gulp.task "wordpress", ->
-  # Include any arbitrary wordpress files
-  gulp.src paths.wordpress.src
-    .pipe gulp.dest(output_url)
-
-gulp.task "plugins", (cb) ->
-  # TODO: Check if folder exists in wp, if not copy over
-  gulp.src "#{paths.plugins.src}/**/*.zip"
-    .pipe unzip()
-    .pipe gulp.dest(paths.plugins.dest)

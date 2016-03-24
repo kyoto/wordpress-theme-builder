@@ -21,3 +21,4 @@ gulp.task "css", ->
     .pipe gulp.dest(paths.wordpress.theme.dest)
     .pipe sizereport(gzip: true, total: false)
     .pipe livereload()
+

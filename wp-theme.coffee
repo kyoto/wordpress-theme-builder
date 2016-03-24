@@ -1,204 +1,86 @@
-# TODO: implement WP CLI for installing wordpress /
-# TODO: clean up paths for Wordpress / PHP
-# TODO: automate the process of storing minified files
-# TODO: allow paths to be overwritten
-# TODO: Find a way to have index.coffee update on watch
 
-gulp       = require "gulp"
-yargs      = require "yargs"
-del        = require "del"
-fs         = require "fs"
-path       = require "path"
-bower      = require "gulp-bower"
-coffee     = require "gulp-coffee"
-concat     = require "gulp-concat"
-flatten    = require "gulp-flatten"
-gulpif     = require "gulp-if"
-htmlclean  = require "gulp-htmlclean"
-imagemin   = require "gulp-imagemin"
-livereload = require "gulp-livereload"
-order      = require "gulp-order"
-plumber    = require "gulp-plumber"
-sass       = require "gulp-ruby-sass"
-sizereport = require "gulp-sizereport"
-sourcemaps = require "gulp-sourcemaps"
-uglify     = require "gulp-uglify"
-uglifycss  = require "gulp-uglifycss"
-unzip      = require "gulp-unzip"
-watch      = require "gulp-watch"
+gulp        = require "gulp"
+yargs       = require "yargs"
+del         = require "del"
+fs          = require "fs"
+path        = require "path"
+requireDir  = require "require-dir"
+runSequence = require "run-sequence"
+util        = require "util"
 
-regex_all = "/**/*"
-
-
-
-# config = require "./theme/config.coffee"
-
-# theme_name    = config.theme_name        or "THEME"
-# theme_url     = config.theme_url         or "./theme"
-# wordpress_url = config.wordpress_url     or "../wordpress"
-
-theme_name    = "THEME"
-theme_url     = "#{path.resolve()}/theme"
-wordpress_url = "#{path.resolve()}/wordpress"
-
-output_url    = "#{wordpress_url}/wp-content/themes/#{theme_name}"
-
-# TODO: override the paths with config
-paths =
-  fonts:
-    src: ["#{theme_url}/assets/fonts/#{regex_all}"]
-    dest: "#{output_url}/fonts/"
-  images:
-    src: ["#{theme_url}/assets/images/#{regex_all}"]
-    dest: "#{output_url}/images/"
-  wordpress:
-    src: ["#{theme_url}/wordpress/#{regex_all}"]
-    images:
-      src: "#{wordpress_url}/wp-content/uploads"
-      backup: "#{wordpress_url}/wp-content/uploads_backup/"
-  plugins:
-    src: "#{theme_url}/plugins"
-    dest: "#{wordpress_url}/wp-content/plugins"
-  php:
-    src: [
-      "#{theme_url}/functions/#{regex_all}.*"
-      "#{theme_url}/pages/#{regex_all}.php"
-      "#{theme_url}/partials/#{regex_all}.php"
-    ]
-    dest: output_url
-  js:
-    app:    "#{theme_url}/assets/javascripts/coffee/index.coffee"
-    base:   "#{theme_url}/assets/javascripts/js"
-    coffee: "#{theme_url}/assets/javascripts/coffee/#{regex_all}.coffee"
-  css:
-    base: "#{theme_url}/assets/stylesheets/"
-    sass: "#{theme_url}/assets/stylesheets/sass"
-    bootstrap: ["#{__dirname}/bower_components/bootstrap-sass/assets/stylesheets"]
-
-
-
-# Gulp tasks
-gulp.task "init", ->
-  #TODO: generate the base assets folder
-  #TODO: pull a copy of the latest wordpress and setup the folder
-
-  # Set up bower to obtain css/javascript libraries
-  bower().pipe gulp.dest("#{__dirname}/bower_components")
-
-  # Copy over themes directory if it doesnt exist
-  unless fs.exists(theme_url)
-    gulp.src "#{__dirname}/theme-default/#{regex_all}"
-      .pipe gulp.dest(theme_url)
-
-
-gulp.start "init"
-
-
-gulp.task "fonts", ->
-  gulp.src paths.fonts.src
-    .pipe gulp.dest(paths.fonts.dest)
-
-gulp.task "images", ->
-  gulp.src paths.images.src
-    # Optimize images
-    .pipe gulpif(production, imagemin(progressive: true))
-    .pipe gulp.dest(paths.images.dest)
-
-gulp.task "php", ->
-  gulp.src paths.php.src
-    # Remove whitespace in the rendered HTML aspect in the PHP
-    .pipe gulpif(production, htmlclean())
-    .pipe gulp.dest(paths.php.dest)
-    .pipe livereload()
-
-gulp.task "js", (cb) ->
-  # Compile all coffeescripts into javascript
-  gulp.src paths.js.coffee
-    .pipe coffee(bare: true)
-    .pipe gulp.dest(paths.js.base)
-
-  # Concat and minify all javascript files
-  js_files = ("#{paths.js.base}/#{file_name}.js" for file_name in require(paths.js.app))
-
-  gulp.src js_files
-    .pipe concat("index.js")
-    .pipe gulpif(production, uglify())
-    .pipe gulp.dest(output_url)
-    .pipe sizereport(gzip: true, total: false)
-    .pipe livereload()
-
-  # Internet explorer javascript
-  gulp.src ["#{paths.js.base}/ie.js"]
-    .pipe gulpif(production, uglify())
-    .pipe gulp.dest(output_url)
-
-gulp.task "css", ->
-  # Load sass frameworks
-  sass(paths.css.sass, loadPath: [paths.css.bootstrap], sourcemap: !production)
-    # Include the sourcemaps for debugging
-    .pipe gulpif(!production, sourcemaps.write())
-    .pipe gulpif(production, uglifycss())
-    .pipe gulp.dest(output_url)
-    .pipe sizereport(gzip: true, total: false)
-    .pipe livereload()
-
-gulp.task "wordpress", ->
-  # Include any arbitrary wordpress files
-  gulp.src paths.wordpress.src
-    .pipe gulp.dest(output_url)
-
-gulp.task "minify_js", ->
-  # TODO: List file sizes
-  gulp.src "#{paths.js.base}/*.js"
-    .pipe uglify()
-    .pipe gulp.dest("#{paths.js.base}/../min")
-
-gulp.task "optimize_uploads", ->
-  # Optimize uploaded images
-  gulp.src "#{paths.wordpress.images.src}#{regex_all}"
-    # Backup the images
-    .pipe gulp.dest(paths.wordpress.images.backup)
-    .pipe imagemin(progressive: true)
-    .pipe gulp.dest(paths.wordpress.images.src)
-
-gulp.task "plugins", (cb) ->
-  # TODO: Check if folder exists in wp, if not copy over
-  gulp.src "#{paths.plugins.src}/#{regex_all}.zip"
-    .pipe unzip()
-    .pipe gulp.dest(paths.plugins.dest)
-
-gulp.task "clean", (cb) ->
-
-  # Clear out all folders in the theme
-  del.sync(["#{output_url}/images/**", "#{output_url}/images", "#{output_url}/*", output_url], force: true)
-  cb()
-
-gulp.task "default", ->
-  gulp.start "clean"
-  gulp.start "fonts", "images", "php", "js", "css", "wordpress", "plugins"
-
-gulp.task "watch", ->
-  gulp.start "default"
-
-  livereload.listen()
-
-  watch paths.fonts.src,  -> gulp.start "fonts"
-  watch paths.images.src, -> gulp.start "images"
-  watch paths.php.src,    -> gulp.start "php"
-  watch paths.js.coffee,  -> gulp.start "js"
-  watch paths.js.app,     -> gulp.start "js"
-  watch paths.css.sass,   -> gulp.start "css"
-
-
+bower       = require "gulp-bower"
+coffee      = require "gulp-coffee"
+concat      = require "gulp-concat"
+download    = require "gulp-download"
+flatten     = require "gulp-flatten"
+gulpif      = require "gulp-if"
+htmlclean   = require "gulp-htmlclean"
+imagemin    = require "gulp-imagemin"
+order       = require "gulp-order"
+plumber     = require "gulp-plumber"
+uglify      = require "gulp-uglify"
+unzip       = require "gulp-unzip"
+watch       = require "gulp-watch"
 
 
 # Flag for compiling theme with production settings
-production = !!(yargs.argv.production)
+global.production = !!(yargs.argv.production)
 
-process.stdout.write("\n\n==================================================\n")
-process.stdout.write("Theme Name: #{theme_name}\n")
-process.stdout.write("Compiling for Production\n") if production
-process.stdout.write("==================================================\n\n\n")
+
+h     = require "./tasks/helper"
+paths = require "./tasks/paths"
+
+require "./tasks/css"
+
+
+gulp.start "css"
+
+
+gulp.task "init", ->
+  #TODO: generate the base assets folder
+
+  # # Initialize the wordpress instance
+  # gulp.start "wordpress-init"
+
+  # # Set up bower to obtain css/javascript libraries
+  # bower().pipe gulp.dest("#{paths.base}/bower_components")
+
+  # # Copy over themes directory if it doesnt exist
+  # unless fs.exists(paths.wordpress.theme.src)
+  #   gulp.src "#{paths.base}/theme-default/**/*"
+  #     .pipe gulp.dest(paths.wordpress.theme.src)
+
+
+
+
+
+# gulp.task "clean", (cb) ->
+#   # Clear out all folders in the theme
+#   del.sync(["#{output_url}/images/**", "#{output_url}/images", "#{output_url}/*", output_url], force: true)
+#   cb()
+
+
+# gulp.task "default", ->
+#   gulp.start "clean"
+#   gulp.start "fonts", "images", "php", "js", "css", "wordpress", "plugins"
+
+
+# gulp.task "watch", ->
+#   gulp.start "default"
+
+#   livereload.listen()
+
+#   watch paths.fonts.src,  -> gulp.start "fonts"
+#   watch paths.images.src, -> gulp.start "images"
+#   watch paths.php.src,    -> gulp.start "php"
+#   watch paths.js.coffee,  -> gulp.start "js"
+#   watch paths.js.app,     -> gulp.start "js"
+#   watch paths.css.sass,   -> gulp.start "css"
+
+
+
+
 
 
 # gulp.start "watch"
+gulp.start "init"

@@ -28,19 +28,19 @@ paths.wordpress.theme =
 
 
 paths.css =
-  sass: "#{paths.wordpress.theme.src}/assets/stylesheets/sass"
+  sass: "#{paths.wordpress.theme.src}/stylesheets/sass"
 
 paths.js =
-  src:    "#{paths.wordpress.theme.src}/assets/javascripts/js"
-  coffee: "#{paths.wordpress.theme.src}/assets/javascripts/coffee"
+  src:    "#{paths.wordpress.theme.src}/javascripts/js"
+  coffee: "#{paths.wordpress.theme.src}/javascripts/coffee"
 
 paths.images =
-  src:  "#{paths.wordpress.theme.src}/assets/images"
+  src:  "#{paths.wordpress.theme.src}/images"
   dest: "#{paths.wordpress.theme.dest}/images/"
 
 paths.app =
   src:  [
-    "#{paths.wordpress.theme.src}/app/**/*"
+    "#{paths.wordpress.theme.src}/**/*"
     "#{paths.wordpress.theme.src}/wordpress/**/*"
   ]
   dest: paths.wordpress.theme.dest

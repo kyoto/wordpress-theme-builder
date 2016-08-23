@@ -1,9 +1,9 @@
 {
-  "name": "wordpress-theme",
-  "description": "Generates a wordpress theme template",
+  "name": "WordPress Theme Builder",
+  "description": "",
   "version": "0.0.1",
   "bin": {
-    "wp-theme": "./wp-theme.js"
+    "wptb": "./wptb.js"
   },
   "dependencies": {
     "browserify": "*",

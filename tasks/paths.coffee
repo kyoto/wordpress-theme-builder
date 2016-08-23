@@ -19,13 +19,13 @@ paths.wordpress =
   themeName: "THEME"
   plugins: []
 
-# Override config
+
+# Override the initial configuration with the user defined configuration (config.coffee)
 paths.wordpress = objectMerge(paths.wordpress, config)
 
 paths.wordpress.theme =
   src:  "#{paths.base}/theme"
   dest: "#{paths.wordpress.base}/wordpress/wp-content/themes/#{paths.wordpress.themeName}"
-
 
 paths.css =
   sass: "#{paths.wordpress.theme.src}/stylesheets/sass"

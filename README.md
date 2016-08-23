@@ -1,7 +1,7 @@
-wordpress theme
-==============
+# WordPress Theme Builder
 
-(Currently still in development)
+
+(Currently in development)
 
 This script aims to improve the process of creating a wordpress theme from scratch by providing a few subjective conventions that make theme development a bit more enjoyable and also the end product of the theme optimized for use.
 

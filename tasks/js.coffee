@@ -12,9 +12,9 @@ h     = require "./helper"
 paths = require "./paths"
 
 
+# Compile all coffeescripts into javascript
 gulp.task "js", (cb) ->
 
-  # Compile all coffeescripts into javascript
   gulp.src "#{paths.js.coffee}/**/*.coffee"
     .pipe coffee(bare: true)
     .pipe gulp.dest(paths.js.src)
@@ -23,10 +23,18 @@ gulp.task "js", (cb) ->
   js_files = ("#{paths.js.src}/#{file_name}.js" for file_name in require("#{paths.js.coffee}/index.coffee"))
 
   gulp.src js_files
+    # Concat all the Javascript files
     .pipe concat("index.js")
+
+    # Optimize the javascript
     .pipe gulpif(global.production, uglify())
+
     .pipe gulp.dest(paths.wordpress.theme.dest)
+
+    # Generate a size report
     .pipe sizereport(gzip: true, total: false)
+
+    # Livereload hook
     .pipe livereload()
 
   # Internet explorer javascript

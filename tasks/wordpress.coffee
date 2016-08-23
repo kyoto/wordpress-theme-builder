@@ -5,10 +5,11 @@ fs          = require "fs"
 runSequence = require "run-sequence"
 unzip       = require "gulp-unzip"
 
-h     = require "./helper"
-paths = require "./paths"
+h           = require "./helper"
+paths       = require "./paths"
 
 
+# Install the latest instance of WordPress or the version specified
 gulp.task "wordpress-install", ->
   h.out "Installing Wordpress"
 
@@ -37,9 +38,8 @@ gulp.task "wordpress-install", ->
       .pipe gulp.dest(paths.wordpress.base)
 
 
-
+# Remove all default plugins and themes
 gulp.task "wordpress-remove-defaults", ->
-
   # Remove default themes and plugins
   del.sync([
     "#{paths.wordpress.base}/wordpress/wp-content/themes/**/*/"
@@ -51,9 +51,9 @@ gulp.task "wordpress-remove-defaults", ->
   ], force: true)
 
 
+# Install WordPress plugins declared in the config
 gulp.task "wordpress-install-plugins", ->
   h.out "Installing Wordpress Plugins"
-
 
   # Download the wordpress plugins
   i = 0
@@ -85,7 +85,6 @@ gulp.task "wordpress-theme-install", ->
 
 
 gulp.task "wordpress-init", (cb) ->
-
 
   runSequence(
     "wordpress-theme-install",

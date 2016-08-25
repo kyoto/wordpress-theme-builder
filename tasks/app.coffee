@@ -3,7 +3,7 @@ gulpif     = require "gulp-if"
 htmlclean  = require "gulp-htmlclean"
 livereload = require "gulp-livereload"
 
-h          = require "./helper"
+helper     = require "./helper"
 paths      = require "./paths"
 
 

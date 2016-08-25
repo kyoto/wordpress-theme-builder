@@ -3,7 +3,9 @@ objectMerge = require "object-merge"
 yargs       = require "yargs"
 
 
-h      = require "./helper"
+helper = require "./helper"
+
+# TODO: Fix this race condition
 config = require "../theme/config"
 
 # Flag for compiling theme with production settings

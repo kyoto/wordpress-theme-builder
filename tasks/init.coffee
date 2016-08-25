@@ -5,7 +5,7 @@ runSequence = require "run-sequence"
 util        = require "util"
 watch       = require "gulp-watch"
 
-h           = require "./helper"
+helper      = require "./helper"
 paths       = require "./paths"
 
 

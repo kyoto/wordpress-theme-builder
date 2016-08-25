@@ -1,15 +1,15 @@
 {
-  "name": "WordPress Theme Builder",
+  "name": "wordpress-theme-builder",
   "description": "",
   "version": "0.0.1",
   "bin": {
-    "wptb": "./wptb.js"
+    "wptb": "./wordpress-theme-builder.js"
   },
   "dependencies": {
     "browserify": "*",
     "coffee-script": "*",
     "del": "*",
-    "fs": "*",
+    "graceful-fs": "*",
     "gulp": "*",
     "gulp-bower": "*",
     "gulp-coffee": "*",

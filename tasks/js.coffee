@@ -8,8 +8,8 @@ sizereport = require "gulp-sizereport"
 livereload = require "gulp-livereload"
 uglify     = require "gulp-uglify"
 
-h     = require "./helper"
-paths = require "./paths"
+helper     = require "./helper"
+paths      = require "./paths"
 
 
 # Compile all coffeescripts into javascript

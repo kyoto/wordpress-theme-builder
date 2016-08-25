@@ -1,17 +1,17 @@
 gulp        = require "gulp"
 download    = require "gulp-download"
 del         = require "del"
-fs          = require "fs"
+fs          = require "graceful-fs"
 runSequence = require "run-sequence"
 unzip       = require "gulp-unzip"
 
-h           = require "./helper"
+helper      = require "./helper"
 paths       = require "./paths"
 
 
 # Install the latest instance of WordPress or the version specified
 gulp.task "wordpress-install", ->
-  h.out "Installing Wordpress"
+  helper.out "Installing Wordpress"
 
   fileName = if paths.wordpress.version == "latest" then "latest.zip" else "wordpress-#{paths.wordpress.version}.zip"
 
@@ -20,7 +20,7 @@ gulp.task "wordpress-install", ->
     del.sync(["#{paths.wordpress.base}/wordpress"], force: true)
 
   if fs.existsSync "#{paths.base}/.cache/#{fileName}"
-    h.out "Use local"
+    helper.out "Use local"
 
     gulp.src "#{paths.base}/.cache/#{fileName}"
       .pipe unzip()
@@ -28,7 +28,7 @@ gulp.task "wordpress-install", ->
 
   else
     # Download the wordpress instance
-    h.out "Downloading Wordpress"
+    helper.out "Downloading Wordpress"
 
     url = "https://wordpress.org/#{fileName}"
 
@@ -53,7 +53,7 @@ gulp.task "wordpress-remove-defaults", ->
 
 # Install WordPress plugins declared in the config
 gulp.task "wordpress-install-plugins", ->
-  h.out "Installing Wordpress Plugins"
+  helper.out "Installing Wordpress Plugins"
 
   # Download the wordpress plugins
   i = 0
@@ -76,7 +76,7 @@ gulp.task "wordpress-install-plugins", ->
 
 
 gulp.task "wordpress-theme-install", ->
-  h.out "Install Theme"
+  helper.out "Install Theme"
 
   # Copy over themes directory if it doesnt exist
   unless fs.exists(paths.wordpress.theme.src)

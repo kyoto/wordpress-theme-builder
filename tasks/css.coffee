@@ -8,7 +8,7 @@ sizereport = require "gulp-sizereport"
 sourcemaps = require "gulp-sourcemaps"
 uglifycss  = require "gulp-uglifycss"
 
-h          = require "./helper"
+helper     = require "./helper"
 paths      = require "./paths"
 
 

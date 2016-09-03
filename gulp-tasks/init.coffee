@@ -27,18 +27,22 @@ gulp.task "clean", (cb) ->
 
 # Default function of WordPress Theme Builder
 gulp.task "default", ->
+  helper.out "Running Default task"
+
   gulp.start "clean"
-  gulp.start "app", "images", "js", "css", "fonts"
+  gulp.start "app", "php", "images", "js", "css"
 
 
 # Watch function of WordPress Theme Builder
 gulp.task "watch", ->
+  helper.out "Running Watch task"
+
   gulp.start "default"
 
   # Livereload listener
   liveReload.listen()
 
-  watch config.app.src,    -> gulp.start "app"
+  watch config.php.src,    -> gulp.start "php"
   watch config.css.sass,   -> gulp.start "css"
   watch config.images.src, -> gulp.start "images"
   watch config.js.coffee,  -> gulp.start "js"

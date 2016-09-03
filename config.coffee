@@ -30,6 +30,14 @@ config.wordpress.theme =
   src:  "#{config.base}/theme"
   dest: "#{config.wordpress.folder}/wp-content/themes/#{config.wordpress.themeName}"
 
+config.app =
+  src: "#{config.wordpress.theme.src}/app/**/*"
+  dest: config.wordpress.theme.dest
+
+config.php =
+  src:  "#{config.wordpress.theme.src}/php/**/*"
+  dest: config.wordpress.theme.dest
+
 config.css =
   sass: "#{config.wordpress.theme.src}/stylesheets/sass"
 
@@ -40,18 +48,6 @@ config.js =
 config.images =
   src:  "#{config.wordpress.theme.src}/images"
   dest: "#{config.wordpress.theme.dest}/images/"
-
-# TODO: have this as part of APP
-config.fonts =
-  src:  "#{config.wordpress.theme.src}/fonts"
-  dest: "#{config.wordpress.theme.dest}/fonts/"
-
-config.app =
-  src:  [
-    "#{config.wordpress.theme.src}/php/**/*"
-    "#{config.wordpress.theme.src}/wordpress/**/*"
-  ]
-  dest: config.wordpress.theme.dest
 
 
 # Make the config variable globally available

@@ -1,18 +1,8 @@
 gulp.task "app", ->
-  # Include any WordPress files
-  gulp.src config.app.src
+  helper.out "Running App task"
 
-    # Remove all the white-space in any PHP and SVG
-    .pipe gulpIf(args.production, htmlClean())
+  gulp.src "#{config.app.src}/**/*"
     .pipe gulp.dest(config.app.dest)
-
-    # Live reload hook
-    .pipe liveReload()
-
-
-gulp.task "fonts", ->
-  gulp.src "#{config.fonts.src}/**/*"
-    .pipe gulp.dest(config.fonts.dest)
 
 
 gulp.task "browser-sync", ->

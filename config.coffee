@@ -31,11 +31,11 @@ config.wordpress.theme =
   dest: "#{config.wordpress.folder}/wp-content/themes/#{config.wordpress.themeName}"
 
 config.app =
-  src: "#{config.wordpress.theme.src}/app/**/*"
+  src: "#{config.wordpress.theme.src}/app"
   dest: config.wordpress.theme.dest
 
 config.php =
-  src:  "#{config.wordpress.theme.src}/php/**/*"
+  src:  "#{config.wordpress.theme.src}/php"
   dest: config.wordpress.theme.dest
 
 config.css =

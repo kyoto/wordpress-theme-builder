@@ -1,6 +1,5 @@
 # Sets all the arguments
 
-
 args = {}
 
 # Assume the first argument is the name of task to run.
@@ -20,6 +19,7 @@ args.development = args.env == "development"
 # TODO: Enable browser-sync
 # TODO: Enable livereload
 # TODO: Enable verbose
+
 
 # Help Screen
 # TODO: List all available tasks

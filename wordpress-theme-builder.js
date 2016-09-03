@@ -4,4 +4,3 @@
 require("coffee-script/register");
 
 require("./wordpress-theme-builder.coffee");
-

@@ -2,6 +2,7 @@
 
 # Compile all coffeescripts into javascript
 gulp.task "js", (cb) ->
+  helper.out "Running Javascript task"
 
   gulp.src "#{config.js.coffee}/**/*.coffee"
     .pipe coffee(bare: true)

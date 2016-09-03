@@ -1,7 +1,8 @@
 # Optimizes all image files that are part of the theme
 gulp.task "images", ->
-  gulp.src "#{config.images.src}/**/*"
+  helper.out "Running Images task"
 
+  gulp.src "#{config.images.src}/**/*"
     # Optimize images using imageMin
     .pipe gulpIf(args.production, imageMin(progressive: true))
 

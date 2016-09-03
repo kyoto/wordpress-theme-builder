@@ -14,10 +14,12 @@ gulp.task "images", ->
 
 # Optimizes all uploaded image files
 gulp.task "images_optimize_uploads", ->
+  timestamp = dateFormat(new Date(), "yyyymmddhMMss")
+
   gulp.src "#{config.wordpress.folder}/wp-content/uploads/**/*"
 
-    # Make a backup of the uploads
-    .pipe gulp.dest("#{config.wordpress.folder}/wp-content/uploads_backup")
+    # Make a backup of the current uploads folder
+    .pipe gulp.dest("#{config.wordpress.folder}/wp-content/uploads-#{timestamp}")
 
     # Optimize images using
     .pipe imageMin(progressive: true)

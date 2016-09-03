@@ -9,6 +9,7 @@
     "browserify": "13.1.0",
     "browser-sync": "*",
     "coffee-script": "1.10.0",
+    "dateformat": "*",
     "del": "2.2.2",
     "graceful-fs": "4.1.6",
     "gulp": "3.9.1",

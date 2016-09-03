@@ -1,41 +1,36 @@
 # TODO: Find a way to have index.coffee update on watch
+# TODO: Use the underscore pattern to manage which files should be outputted like with the SASS
 
 # Compile all coffeescripts into javascript
 gulp.task "js", (cb) ->
   helper.out "Running Javascript task"
 
-  gulp.src "#{config.js.coffee}/**/*.coffee"
+  # Compile all coffeescript files into the js folders
+  gulp.src ["#{config.js.coffee}/**/*.coffee", "!#{config.js.coffee}/index.coffee"]
     .pipe coffee(bare: true)
     .pipe gulp.dest(config.js.src)
 
+
+  # Get the list of javascript files
+  coffeeFiles = require("#{config.js.coffee}/index.coffee")
+
   # Concat and minify all javascript files
-  js_files = ("#{config.js.src}/#{file_name}.js" for file_name in require("#{config.js.coffee}/index.coffee"))
+  for fileName,fileNames of coffeeFiles
 
-  gulp.src js_files
-    # Concat all the Javascript files
-    .pipe concat("index.js")
+    # Append the correct path and js extension
+    javascriptFileNames = ("#{config.js.src}/#{javascriptFileName}.js" for javascriptFileName in fileNames)
 
-    # Optimize the javascript
-    .pipe gulpIf(args.production, uglify())
+    gulp.src javascriptFileNames
+      # Concat all the Javascript files
+      .pipe concat("#{fileName}.js")
 
-    .pipe gulp.dest(config.wordpress.theme.dest)
+      # Minify the javascript
+      .pipe gulpIf(args.production, uglify())
 
-    # Generate a size report
-    .pipe sizeReport(gzip: true, total: false)
+      .pipe gulp.dest(config.wordpress.theme.dest)
 
-    # Live reload hook
-    .pipe liveReload()
+      # Generate a size report
+      .pipe sizeReport(gzip: true, total: false)
 
-  # Internet explorer javascript
-  gulp.src ["#{config.js.src}/ie.js"]
-    .pipe gulpIf(args.production, uglify())
-    .pipe gulp.dest(config.wordpress.theme.dest)
-
-
-gulp.task "js_minify", ->
-
-  # TODO: List file sizes
-  gulp.src "#{config.js.src}/*.js"
-    .pipe uglify()
-    .pipe gulp.dest("#{config.js.src}/../min")
-
+      # Live reload hook
+      .pipe liveReload()

@@ -39,7 +39,7 @@ config.php =
   dest: config.wordpress.theme.dest
 
 config.css =
-  sass: "#{config.wordpress.theme.src}/stylesheets/sass"
+  sass:   "#{config.wordpress.theme.src}/stylesheets/sass"
 
 config.js =
   src:    "#{config.wordpress.theme.src}/javascripts/js"

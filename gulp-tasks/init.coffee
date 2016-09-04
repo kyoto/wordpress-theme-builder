@@ -8,6 +8,7 @@ gulp.task "init", (cb) ->
     cb
   )
 
+
 # Set up bower to obtain css/javascript libraries
 gulp.task "bower", ->
   # TODO: Disabling bower for the time being. Will have to come back and properly install this
@@ -16,6 +17,7 @@ gulp.task "bower", ->
 
 # Clean up WordPress Theme Builder
 gulp.task "clean", (cb) ->
+  helper.out "Running Clean task"
   # Clear out all folders in the theme
   del.sync([
     "#{config.wordpress.theme.dest}/**/*"
@@ -26,11 +28,10 @@ gulp.task "clean", (cb) ->
 
 
 # Default function of WordPress Theme Builder
-gulp.task "default", ->
+gulp.task "default", (cb) ->
   helper.out "Running Default task"
 
-  gulp.start "clean"
-  gulp.start "app", "php", "images", "js", "css"
+  gulp.start "clean", "app", "php", "images", "js", "css"
 
 
 # Watch function of WordPress Theme Builder

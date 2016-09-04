@@ -19,8 +19,7 @@ global.gulpIf       = require "gulp-if"
 global.htmlClean    = require "gulp-htmlclean"
 global.imageMin     = require "gulp-imagemin"
 global.liveReload   = require "gulp-livereload"
-global.requireTasks = require "gulp-require-tasks"
-global.sass         = require "gulp-ruby-sass"
+global.sass         = require "gulp-sass"
 global.sizeReport   = require "gulp-sizereport"
 global.sourceMaps   = require "gulp-sourcemaps"
 global.uglify       = require "gulp-uglify"
@@ -34,8 +33,13 @@ global.args         = require "./arguments"
 global.config       = require "./config"
 
 # WordPress Theme Builder tasks
-requireTasks path: "#{__dirname}/gulp-tasks"
-
+require "./gulp-tasks/app"
+require "./gulp-tasks/css"
+require "./gulp-tasks/images"
+require "./gulp-tasks/init"
+require "./gulp-tasks/js"
+require "./gulp-tasks/php"
+require "./gulp-tasks/wordpress"
 
 # Run the selected task
 gulp.start args.taskName

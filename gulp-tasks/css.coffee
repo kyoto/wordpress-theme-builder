@@ -2,14 +2,14 @@
 
 # Generate the CSS from SASS files
 gulp.task "css", ->
+  helper.out "Running Css task"
 
-  # TODO: Figure out how to make this more generic
-  bootstrap_url = "#{config.base}/bower_components/bootstrap-sass/assets/stylesheets"
-
-  # Load sass frameworks
-  sass(config.css.sass, loadPath: [bootstrap_url], sourcemap: args.development)
-
+  gulp.src "#{config.css.sass}/*"
     # Include the source maps for debugging
+    .pipe gulpIf(args.development, sourceMaps.init())
+
+    .pipe sass()
+
     .pipe gulpIf(args.development, sourceMaps.write())
 
     # Optimize the CSS using uglifyCss
@@ -22,4 +22,3 @@ gulp.task "css", ->
 
     # Live reload hook
     .pipe liveReload()
-

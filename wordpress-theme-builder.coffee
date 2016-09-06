@@ -1,5 +1,5 @@
 # NPM Functions
-global.browserSync  = require("browser-sync").create()
+global.browserSync  = require "browser-sync"
 global.dateFormat   = require "dateformat"
 global.del          = require "del"
 global.fs           = require "graceful-fs"

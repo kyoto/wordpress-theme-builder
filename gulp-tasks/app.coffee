@@ -5,8 +5,10 @@ gulp.task "app", ->
     .pipe gulp.dest(config.app.dest)
 
 
-# Uses the browser-sync library to allow the website to be synced across browsers
+# Uses the browser_sync library to allow the website to be synced across browsers
 gulp.task "browser-sync", ->
+  helper.out "Running browser sync task"
+
   browserSync.init
     proxy: config.wordpress.host
 

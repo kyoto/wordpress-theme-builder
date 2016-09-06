@@ -2,17 +2,10 @@
 # Initializes WordPress Theme Builder
 gulp.task "init", (cb) ->
   runSequence(
-    "bower",
     "wordpress-init",
     "default",
     cb
   )
-
-
-# Set up bower to obtain css/javascript libraries
-gulp.task "bower", ->
-  # TODO: Disabling bower for the time being. Will have to come back and properly install this
-  # bower().pipe gulp.dest("#{config.base}/bower_components")
 
 
 # Clean up WordPress Theme Builder

@@ -42,7 +42,18 @@ require "./gulp-tasks/js"
 require "./gulp-tasks/php"
 require "./gulp-tasks/wordpress"
 
-# Run the selected task
-gulp.start args.taskName
+
+# Run the selected task if it exists
+if gulp.tasks[args.taskName]
+  gulp.start args.taskName
+
+# Display the help
+else if args.taskName == "help"
+  helper.help()
+
+# Display an error and the help
+else
+  helper.out("'#{args.taskName}' task does not exist.")
+  helper.help()
 
 

@@ -3,8 +3,9 @@ gulp.task "php", ->
 
   gulp.src "#{config.php.src}/**/*"
 
-    # Remove all the white-space in any PHP
+    # Remove all HTML comments & white-space
     .pipe gulpIf(args.production, htmlClean())
+
     .pipe gulp.dest(config.php.dest)
 
     # Live reload hook

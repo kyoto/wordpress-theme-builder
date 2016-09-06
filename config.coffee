@@ -8,6 +8,7 @@ config.wordpress =
   version: "latest"
   folder: "#{config.base}/wordpress"
   themeName: "THEME"
+  css: "sass"
   plugins: []
 
 
@@ -40,6 +41,7 @@ config.php =
 
 config.css =
   sass:   "#{config.wordpress.theme.src}/stylesheets/sass"
+  less:   "#{config.wordpress.theme.src}/stylesheets/less"
 
 config.js =
   src:    "#{config.wordpress.theme.src}/javascripts/js"

@@ -4,11 +4,15 @@
 gulp.task "css", ->
   helper.out "Running Css task"
 
-  gulp.src "#{config.css.sass}/*.scss"
+  gulp.src ["#{config.css.sass}/*.scss", "#{config.css.less}/*.less"]
     # Include the source maps for debugging
     .pipe gulpIf(args.development, sourceMaps.init())
 
-    .pipe sass()
+    # Compile Sass
+    .pipe gulpIf(config.wordpress.css == "sass", sass())
+
+    # Or compile Less
+    .pipe gulpIf(config.wordpress.css == "less", less())
 
     .pipe gulpIf(args.development, sourceMaps.write())
 

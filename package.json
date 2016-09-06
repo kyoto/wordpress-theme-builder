@@ -20,6 +20,7 @@
     "gulp-htmlclean": "*",
     "gulp-if": "*",
     "gulp-imagemin": "*",
+    "gulp-less": "*",
     "gulp-livereload": "*",
     "gulp-sass": "*",
     "gulp-sizereport": "*",

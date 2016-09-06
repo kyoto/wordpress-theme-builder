@@ -1,24 +1,13 @@
-
-# Initialize WordPress
-gulp.task "wordpress-init", (cb) ->
-
-  # Run the tasks sequentially as they have depencies
-  runSequence(
-    "wordpress-install",
-    "wordpress-default-theme-install",
-    "wordpress-remove-themes-and-plugins",
-    "wordpress-install-plugins",
-    cb
-  )
-
-
 # Install the latest instance of WordPress or the version specified
-gulp.task "wordpress-install", (cb) ->
+gulp.task "wp-install", (cb) ->
   helper.out "Installing WordPress"
 
-  fileName = if config.wordpress.version == "latest" then "latest.zip" else "wordpress-#{config.wordpress.version}.zip"
+  if config.wordpress.version == "latest"
+    fileName = "latest.zip"
+  else
+    fileName = "wordpress-#{config.wordpress.version}.zip"
 
-  # Remove WordPress
+  # Remove WordPress folder
   if fs.existsSync "#{config.wordpress.folder}"
     del.sync(["#{config.wordpress.folder}"], force: true)
 
@@ -52,7 +41,7 @@ gulp.task "wordpress-install", (cb) ->
 
 
 # Remove all default plugins and themes
-gulp.task "wordpress-remove-themes-and-plugins", ->
+gulp.task "wp-remove-themes-and-plugins", ->
   helper.out "Removing default themes and plugins"
 
   # Remove default themes and plugins
@@ -67,7 +56,7 @@ gulp.task "wordpress-remove-themes-and-plugins", ->
 
 
 # Install WordPress plugins declared in the config
-gulp.task "wordpress-install-plugins", ->
+gulp.task "wp-install-plugins", ->
   helper.out "Installing Wordpress Plugins"
 
   # Download the wordpress plugins
@@ -91,8 +80,11 @@ gulp.task "wordpress-install-plugins", ->
 
 
 # Install the default theme
-gulp.task "wordpress-default-theme-install", ->
+gulp.task "wp-default-theme-install", ->
   helper.out "Installing default theme"
+
+  #TODO: Generate the folders according to the paths
+  #TODO: Generate the most essential files for a theme to work
 
   # Copy over the default theme
   unless fs.exists(config.wordpress.theme.src)

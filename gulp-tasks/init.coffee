@@ -2,8 +2,11 @@
 # Initializes WordPress Theme Builder
 gulp.task "init", (cb) ->
   runSequence(
-    "wordpress-init",
-    "default",
+    "wp-install"
+    "wp-default-theme-install"
+    "wp-remove-themes-and-plugins"
+    "wp-install-plugins"
+    "default"
     cb
   )
 

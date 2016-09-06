@@ -13,7 +13,7 @@ gulp.task "images", ->
 
 
 # Optimizes all uploaded image files
-gulp.task "images_optimize_uploads", ->
+gulp.task "images-optimize-uploads", ->
   timestamp = dateFormat(new Date(), "yyyymmddhMMss")
 
   gulp.src "#{config.wordpress.folder}/wp-content/uploads/**/*"

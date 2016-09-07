@@ -25,6 +25,7 @@
     "gulp-sass": "*",
     "gulp-sizereport": "*",
     "gulp-sourcemaps": "*",
+    "gulp-todo": "*",
     "gulp-uglify": "*",
     "gulp-uglifycss": "*",
     "gulp-unzip": "*",

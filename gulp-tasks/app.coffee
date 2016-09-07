@@ -12,3 +12,13 @@ gulp.task "browser-sync", ->
   browserSync.init
     proxy: config.wordpress.host
 
+
+# Generate a list of all the TODOs in the project
+gulp.task "todos", ->
+  helper.out "Running TODOs task"
+
+  gulp.src "#{config.wordpress.theme.src}/**/*.+(php|scss|less|coffee)"
+
+    .pipe todo(fileName: "TODOS.md")
+
+    .pipe gulp.dest(config.wordpress.theme.src)

@@ -14,6 +14,7 @@ gulp.task "init", (cb) ->
 # Clean up WordPress Theme Builder
 gulp.task "clean", (cb) ->
   helper.out "Running Clean task"
+
   # Clear out all folders in the theme
   del.sync([
     "#{config.wordpress.theme.dest}/**/*"
@@ -31,10 +32,8 @@ gulp.task "default", (cb) ->
 
 
 # Watch function of WordPress Theme Builder
-gulp.task "watch", ->
+gulp.task "watch", ["default"], ->
   helper.out "Running Watch task"
-
-  gulp.start "default"
 
   # Livereload listener
   liveReload.listen()

@@ -11,8 +11,9 @@ gulp.task "wp-install", (cb) ->
   if fs.existsSync "#{config.wordpress.folder}"
     del.sync(["#{config.wordpress.folder}"], force: true)
 
+  # Get WordPress from the cache folder if a copy is available
   if fs.existsSync "#{config.base}/.cache/#{fileName}"
-    # Get WordPress from the cache folder if a copy is available
+
     helper.out "Using cached source of WordPress"
 
     gulp.src "#{config.base}/.cache/#{fileName}"

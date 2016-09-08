@@ -30,6 +30,7 @@
     "gulp-uglifycss": "*",
     "gulp-unzip": "*",
     "gulp-watch": "*",
+    "js-yaml": "*",
     "object-merge": "*",
     "path": "*",
     "run-sequence": "*",

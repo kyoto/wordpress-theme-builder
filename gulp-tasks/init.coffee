@@ -27,8 +27,8 @@ gulp.task "theme-init", ->
     fs.mkdirSync(folder) unless fs.existsSync(folder)
 
   # Create the config file
-  unless fs.existsSync("#{config.wordpress.theme.src}/config.coffee")
-    fs.createWriteStream("#{config.wordpress.theme.src}/config.coffee")
+  unless fs.existsSync("#{config.wordpress.theme.src}/config.yml")
+    fs.createWriteStream("#{config.wordpress.theme.src}/config.yml")
 
   # Create the index.coffee
   unless fs.existsSync("#{config.js.coffee}/index.coffee")
@@ -57,13 +57,15 @@ gulp.task "default", (cb) ->
 
 
 # Watch function of WordPress Theme Builder
-gulp.task "watch", ["default"], ->
+gulp.task "watch", ->
   helper.out "Running Watch task"
+
+  gulp.start "default"
 
   # Livereload listener
   liveReload.listen()
 
   watch config.php.src,    -> gulp.start "php"
-  watch config.css.sass,   -> gulp.start "css"
+  watch config.css.src,    -> gulp.start "css"
   watch config.images.src, -> gulp.start "images"
   watch config.js.coffee,  -> gulp.start "js"

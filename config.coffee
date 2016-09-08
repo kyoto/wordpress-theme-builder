@@ -15,10 +15,10 @@ config.wordpress =
 
 
 # TODO: remove the hardcoding of the theme path
-# Override the initial configuration with the user defined configuration (config.coffee)
-if fs.existsSync "#{config.base}/theme/config.coffee"
-  userConfig = require "#{config.base}/theme/config"
-  config.wordpress = objectMerge(config.wordpress, userConfig)
+if fs.existsSync "#{config.base}/theme/config.yml"
+  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/theme/config.yml", "utf8"))
+  config.wordpress = objectMerge(config.wordpress, userConfig.config)
+
 
 config.wordpress.theme =
   src:  "#{config.base}/theme"
@@ -35,7 +35,7 @@ config.php =
 cssType = if config.wordpress.css == "sass" then "sass" else "less"
 
 config.css =
-  base: "#{config.wordpress.theme.src}/stylesheets/"
+  base: "#{config.wordpress.theme.src}/stylesheets"
   src:  "#{config.wordpress.theme.src}/stylesheets/#{cssType}"
 
 config.js =
@@ -44,7 +44,7 @@ config.js =
 
 config.images =
   src:  "#{config.wordpress.theme.src}/images"
-  dest: "#{config.wordpress.theme.dest}/images/"
+  dest: "#{config.wordpress.theme.dest}/images"
 
 
 # Make the config variable globally available

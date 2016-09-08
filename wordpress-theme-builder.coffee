@@ -7,6 +7,7 @@ global.objectMerge  = require "object-merge"
 global.path         = require "path"
 global.runSequence  = require "run-sequence"
 global.util         = require "util"
+global.yaml         = require "js-yaml"
 global.yargs        = require "yargs"
 
 # Gulp tasks

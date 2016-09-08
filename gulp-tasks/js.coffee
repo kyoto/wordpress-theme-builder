@@ -1,6 +1,3 @@
-# TODO: Find a way to have index.coffee update on watch
-# TODO: Use the underscore pattern to manage which files should be outputted like with the SASS
-
 # Compile all coffeescripts into javascript
 gulp.task "js", ->
   helper.out "Running Javascript task"

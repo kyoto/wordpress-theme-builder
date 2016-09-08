@@ -1,48 +1,73 @@
+
+getWordPressFileSrcName = ->
+  if config.wordpress.version == "latest"
+    "latest.zip"
+  else
+    "wordpress-#{config.wordpress.version}.zip"
+
+
+gulp.task "wp-init", (cb) ->
+  runSequence(
+    "wp-install"
+    "wp-remove-defaults"
+    "wp-install-plugins"
+    cb
+  )
+
+
 # Install the latest instance of WordPress or the version specified
 gulp.task "wp-install", (cb) ->
   helper.out "Installing WordPress"
-
-  if config.wordpress.version == "latest"
-    fileName = "latest.zip"
-  else
-    fileName = "wordpress-#{config.wordpress.version}.zip"
 
   # Remove WordPress folder
   if fs.existsSync "#{config.wordpress.folder}"
     del.sync(["#{config.wordpress.folder}"], force: true)
 
   # Get WordPress from the cache folder if a copy is available
-  if fs.existsSync "#{config.base}/.cache/#{fileName}"
-
+  if fs.existsSync "#{config.base}/.cache/#{getWordPressFileSrcName()}"
     helper.out "Using cached source of WordPress"
 
-    gulp.src "#{config.base}/.cache/#{fileName}"
-      .pipe unzip()
-      .pipe gulp.dest("#{config.base}/.cache")
-
+    runSequence(
+      "wp-extract-from-cache"
+      "wp-copy-from-cache"
+      cb
+    )
 
   else
     # Download the WordPress instance from wordpress.org
-    helper.out "Downloading WordPress"
+    runSequence(
+      "wp-download"
+      "wp-extract-from-cache"
+      "wp-copy-from-cache"
+      cb
+    )
 
-    url = "https://wordpress.org/#{fileName}"
 
-    download(url)
-      # Make a copy to the cache folder
-      .pipe gulp.dest("#{config.base}/.cache")
-      .pipe unzip()
+# Download the WordPress source into the cache folder
+gulp.task "wp-download", ->
+  url = "https://wordpress.org/#{getWordPressFileSrcName()}"
 
-    # TODO: Not working due to the sequencing need to separate into tasks and runSequence
-    gulp.src "#{config.base}/.cache/wordpress/**/*", base: "wordpress"
-      .pipe gulp.dest(config.wordpress.folder)
+  # Download to the cache folder
+  download(url)
+    .pipe gulp.dest("#{config.base}/.cache")
 
-    # TODO: Delete folder in the cache
 
-  cb
+# Extract the WordPress source in the cache directory
+gulp.task "wp-extract-from-cache", ->
+  gulp.src "#{config.base}/.cache/#{getWordPressFileSrcName()}"
+    .pipe unzip()
+    .pipe gulp.dest("#{config.base}/.cache")
+
+
+# Copy the WordPress source from the cache folder
+gulp.task "wp-copy-from-cache", ->
+  gulp.src "#{config.base}/.cache/wordpress/**/*"
+    .pipe gulp.dest(config.wordpress.folder)
+
 
 
 # Remove all default plugins and themes
-gulp.task "wp-remove-themes-and-plugins", ->
+gulp.task "wp-remove-defaults", ->
   helper.out "Removing default themes and plugins"
 
   # Remove default themes and plugins

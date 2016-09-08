@@ -6,13 +6,12 @@ gulp.task "js", (cb) ->
   helper.out "Running Javascript task"
 
   # Compile all coffeescript files into the js folders
-  gulp.src ["#{config.js.coffee}/**/*.coffee", "!#{config.js.coffee}/index.coffee"]
+  gulp.src "#{config.js.coffee}/**/*.coffee"
     .pipe coffee(bare: true)
     .pipe gulp.dest(config.js.src)
 
-
   # Get the list of javascript files
-  coffeeFiles = require("#{config.js.coffee}/index.coffee")
+  coffeeFiles = yaml.safeLoad(fs.readFileSync("#{config.js.coffee}/index.yml", "utf8"))
 
   # Concat and minify all javascript files
   for fileName,fileNames of coffeeFiles

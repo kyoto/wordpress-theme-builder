@@ -4,7 +4,7 @@
 gulp.task "css", ->
   helper.out "Running Css task"
 
-  gulp.src ["#{config.css.sass}/*.scss", "#{config.css.less}/*.less"]
+  gulp.src "#{config.css.src}/*.+(scss|less)"
     # Include the source maps for debugging
     .pipe gulpIf(args.development, sourceMaps.init())
 

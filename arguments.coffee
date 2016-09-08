@@ -20,11 +20,5 @@ args.development = args.env == "development"
 # TODO: Enable livereload
 # TODO: Enable verbose
 
-
-# Help Screen
-# TODO: List all available tasks
-
-
-
 # Make the arguments globally available
 module.exports = args

@@ -39,9 +39,11 @@ config.php =
   src:  "#{config.wordpress.theme.src}/php"
   dest: config.wordpress.theme.dest
 
+cssType = if config.wordpress.css == "sass" then "sass" else "less"
+
 config.css =
-  sass:   "#{config.wordpress.theme.src}/stylesheets/sass"
-  less:   "#{config.wordpress.theme.src}/stylesheets/less"
+  base: "#{config.wordpress.theme.src}/stylesheets/"
+  src:  "#{config.wordpress.theme.src}/stylesheets/#{cssType}"
 
 config.js =
   src:    "#{config.wordpress.theme.src}/javascripts/js"

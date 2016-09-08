@@ -2,7 +2,7 @@
 # TODO: Use the underscore pattern to manage which files should be outputted like with the SASS
 
 # Compile all coffeescripts into javascript
-gulp.task "js", (cb) ->
+gulp.task "js", ->
   helper.out "Running Javascript task"
 
   # Compile all coffeescript files into the js folders
@@ -16,20 +16,21 @@ gulp.task "js", (cb) ->
   # Concat and minify all javascript files
   for fileName,fileNames of coffeeFiles
 
-    # Append the correct path and js extension
-    javascriptFileNames = ("#{config.js.src}/#{javascriptFileName}.js" for javascriptFileName in fileNames)
+    if fileNames != null
+      # Append the correct path and js extension
+      javascriptFileNames = ("#{config.js.src}/#{javascriptFileName}.js" for javascriptFileName in fileNames)
 
-    gulp.src javascriptFileNames
-      # Concat all the Javascript files
-      .pipe concat("#{fileName}.js")
+      gulp.src javascriptFileNames
+        # Concat all the Javascript files
+        .pipe concat("#{fileName}.js")
 
-      # Minify the javascript
-      .pipe gulpIf(args.production, uglify())
+        # Minify the javascript
+        .pipe gulpIf(args.production, uglify())
 
-      .pipe gulp.dest(config.wordpress.theme.dest)
+        .pipe gulp.dest(config.wordpress.theme.dest)
 
-      # Generate a size report
-      .pipe sizeReport(gzip: true, total: false)
+        # Generate a size report
+        .pipe sizeReport(gzip: true, total: false)
 
-      # Live reload hook
-      .pipe liveReload()
+        # Live reload hook
+        .pipe liveReload()

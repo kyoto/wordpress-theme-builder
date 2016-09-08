@@ -45,7 +45,6 @@ require "./gulp-tasks/php"
 require "./gulp-tasks/wordpress"
 
 
-# TODO: remove the hardcoding of the theme path
 # Create the default config if one does not exist
 # unless fs.existsSync "#{path.resolve()}/theme/config.coffee"
 #   gulp.start "theme-init"

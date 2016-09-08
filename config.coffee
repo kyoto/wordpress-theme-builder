@@ -8,6 +8,7 @@ config.wordpress =
   version:     "latest"
   folder:      "#{config.base}/wordpress"
   themeName:   "THEME"
+  themeFolder: "theme"
   liveReload:  true
   browserSync: true
   css:         "sass"
@@ -15,13 +16,13 @@ config.wordpress =
 
 
 # TODO: remove the hardcoding of the theme path
-if fs.existsSync "#{config.base}/theme/config.yml"
-  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/theme/config.yml", "utf8"))
+if fs.existsSync "#{config.base}/#{config.wordpres.themeFolder}/config.yml"
+  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/#{config.wordpres.themeFolder}/config.yml", "utf8"))
   config.wordpress = objectMerge(config.wordpress, userConfig.config)
 
 
 config.wordpress.theme =
-  src:  "#{config.base}/theme"
+  src:  "#{config.base}/#{config.wordpres.themeFolder}"
   dest: "#{config.wordpress.folder}/wp-content/themes/#{config.wordpress.themeName}"
 
 config.app =

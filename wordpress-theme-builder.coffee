@@ -1,4 +1,4 @@
-# NPM Functions
+# NPM packages
 global.browserSync  = require "browser-sync"
 global.dateFormat   = require "dateformat"
 global.del          = require "del"
@@ -42,6 +42,16 @@ require "./gulp-tasks/init"
 require "./gulp-tasks/js"
 require "./gulp-tasks/php"
 require "./gulp-tasks/wordpress"
+
+
+# TODO: remove the hardcoding of the theme path
+# Create the default config if one does not exist
+# unless fs.existsSync "#{path.resolve()}/theme/config.coffee"
+#   gulp.start "theme-init"
+
+# unless fs.existsSync config.wordpress.folder
+#   gulp.start "wp-init"
+
 
 
 # Run the selected task if it exists

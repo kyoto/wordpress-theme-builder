@@ -2,13 +2,38 @@
 # Initializes WordPress Theme Builder
 gulp.task "init", (cb) ->
   runSequence(
-    "wp-install"
-    "wp-default-theme-install"
-    "wp-remove-themes-and-plugins"
-    "wp-install-plugins"
+    "theme-init"
+    "wp-init"
     "default"
     cb
   )
+
+gulp.task "theme-init", ->
+
+  # Create the theme folders
+  folders = [
+    config.wordpress.theme.src
+    config.app.src
+    config.php.src
+    "#{config.wordpress.theme.src}/stylesheets"
+    config.css.src
+    "#{config.wordpress.theme.src}/javascripts"
+    config.js.coffee
+    config.js.src
+    config.images.src
+  ]
+
+  for folder in folders
+    fs.mkdirSync(folder) unless fs.existsSync(folder)
+
+  # Create the config file
+  unless fs.existsSync("#{config.wordpress.theme.src}/config.coffee")
+    fs.createWriteStream("#{config.wordpress.theme.src}/config.coffee")
+
+  # Create the index.coffee
+  unless fs.existsSync("#{config.js.coffee}/index.coffee")
+    fs.createWriteStream("#{config.js.coffee}/index.coffee")
+
 
 
 # Clean up WordPress Theme Builder

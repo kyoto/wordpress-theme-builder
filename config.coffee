@@ -4,28 +4,21 @@ config.base = path.resolve()
 
 # Default settings
 config.wordpress =
-  host: "localhost"
-  version: "latest"
-  folder: "#{config.base}/wordpress"
-  themeName: "THEME"
-  css: "sass"
-  plugins: []
+  host:        "localhost"
+  version:     "latest"
+  folder:      "#{config.base}/wordpress"
+  themeName:   "THEME"
+  liveReload:  true
+  browserSync: true
+  css:         "sass"
+  plugins:     []
 
 
-# Create the default config if one does not exist
-unless fs.existsSync "#{config.base}/theme/config.coffee"
-  # Create the theme directory
-  fs.mkdirSync("#{config.base}/theme")
-
-  # Copy the default config file
-  fs.createReadStream("#{__dirname}/../config-default.coffee")
-    .pipe fs.createWriteStream("#{config.base}/theme/config.coffee")
-
-
+# TODO: remove the hardcoding of the theme path
 # Override the initial configuration with the user defined configuration (config.coffee)
-userConfig = require "#{config.base}/theme/config"
-config.wordpress = objectMerge(config.wordpress, userConfig)
-
+if fs.existsSync "#{config.base}/theme/config.coffee"
+  userConfig = require "#{config.base}/theme/config"
+  config.wordpress = objectMerge(config.wordpress, userConfig)
 
 config.wordpress.theme =
   src:  "#{config.base}/theme"

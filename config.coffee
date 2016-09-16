@@ -16,13 +16,15 @@ config.wordpress =
 
 
 # TODO: remove the hardcoding of the theme path
-if fs.existsSync "#{config.base}/#{config.wordpres.themeFolder}/config.yml"
-  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/#{config.wordpres.themeFolder}/config.yml", "utf8"))
+if fs.existsSync "#{config.base}/#{config.wordpress.themeFolder}/config.yml"
+  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/#{config.wordpress.themeFolder}/config.yml", "utf8"))
   config.wordpress = objectMerge(config.wordpress, userConfig.config)
 
 
+
+
 config.wordpress.theme =
-  src:  "#{config.base}/#{config.wordpres.themeFolder}"
+  src:  "#{config.base}/#{config.wordpress.themeFolder}"
   dest: "#{config.wordpress.folder}/wp-content/themes/#{config.wordpress.themeName}"
 
 config.app =

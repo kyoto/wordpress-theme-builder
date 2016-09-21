@@ -8,7 +8,7 @@ gulp.task "js", ->
     .pipe gulp.dest(config.js.src)
 
   # Get the list of javascript files
-  coffeeFiles = yaml.safeLoad(fs.readFileSync("#{config.js.coffee}/index.yml", "utf8"))
+  coffeeFiles = yaml.safeLoad(fs.readFileSync("#{config.js.base}/index.yml", "utf8"))
 
   # Concat and minify all javascript files
   for fileName,fileNames of coffeeFiles

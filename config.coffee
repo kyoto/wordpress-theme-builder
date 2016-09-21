@@ -16,8 +16,8 @@ config.wordpress =
 
 
 # TODO: remove the hardcoding of the theme path
-if fs.existsSync "#{config.base}/#{config.wordpress.themeFolder}/config.yml"
-  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/#{config.wordpress.themeFolder}/config.yml", "utf8"))
+if fs.existsSync "#{config.base}/config.yml"
+  userConfig = yaml.safeLoad(fs.readFileSync("#{config.base}/config.yml", "utf8"))
   config.wordpress = objectMerge(config.wordpress, userConfig.config)
 
 
@@ -42,6 +42,7 @@ config.css =
   src:  "#{config.wordpress.theme.src}/stylesheets/#{cssType}"
 
 config.js =
+  base:   "#{config.wordpress.theme.src}/javascripts"
   src:    "#{config.wordpress.theme.src}/javascripts/js"
   coffee: "#{config.wordpress.theme.src}/javascripts/coffee"
 
